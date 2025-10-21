@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ThemeToggle } from "../../theme-toggle/theme-toggle";
 import { NavigationMenuItems } from "./navigation-menu";
 import Image from "next/image";
+import { Cart } from "./cart";
 
 const Header = () => {
   return (
@@ -17,7 +18,10 @@ const Header = () => {
             />
           </Link>
         </div>
-        <ThemeToggle />
+        <div>
+          <ThemeToggle />
+          <Cart />
+        </div>
       </header>
 
       <div className="flex flex-row gap-4 px-4 justify-center">

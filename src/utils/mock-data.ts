@@ -980,3 +980,21 @@ export const brands = [
     logoUrl: "/images/logos/new-balance.png",
   },
 ];
+
+export const cart = {
+  totalPriceInCents: 12999,
+  items: [
+    {
+      id: "1",
+      productVariant: {
+        id: "1",
+        name: "Mochila",
+        priceInCents: 12999,
+        imageUrl:
+          "https://d4lgxe9bm8juw.cloudfront.net/products/Acesso%CC%81rios/1/78f9fa3b_c793_472a_b183_e32495033da2.jpg",
+        slug: "mochila",
+      },
+      quantity: 1,
+    },
+  ],
+};

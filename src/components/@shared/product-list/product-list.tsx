@@ -12,7 +12,16 @@ const ProductList = ({ title, products }: ProductListProps) => {
   return (
     <div className="space-y-6">
       <h3 className="px-5 font-semibold">{title}</h3>
-      <div className="flex w-full gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
+      <div
+        className="flex w-full gap-4 overflow-x-auto px-5 
+        sm:[&::-webkit-scrollbar]:hidden
+        md:[&::-webkit-scrollbar]:block
+        md:[&::-webkit-scrollbar]:h-[6px]
+        md:[&::-webkit-scrollbar-track]:bg-transparent
+      md:[&::-webkit-scrollbar-thumb]:bg-gray-300
+        md:[&::-webkit-scrollbar-thumb]:rounded-full
+    "
+      >
         {products.map((product) => (
           <ProductItem key={product.id} product={product} />
         ))}
@@ -21,4 +30,4 @@ const ProductList = ({ title, products }: ProductListProps) => {
   );
 };
 
-export default ProductList;
+export { ProductList };
