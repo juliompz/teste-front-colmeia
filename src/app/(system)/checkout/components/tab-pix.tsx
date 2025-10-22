@@ -11,7 +11,7 @@ const TabPix = () => {
   };
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       {confirmed ? (
         <ShowQrCodeContent />
       ) : (
@@ -27,7 +27,7 @@ const ShowBlurredQrCode = ({
   handleConfirm: () => void;
 }) => {
   return (
-    <div className=" flex flex-col space-y-2 justify-center items-center">
+    <div className="flex flex-col space-y-2 justify-center items-center w-full">
       <p className="text-sm font-medium mb-1 text-center">Pagar com PIX</p>
       <Image
         src="/images/qrCode.png"

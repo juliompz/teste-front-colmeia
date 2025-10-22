@@ -1,5 +1,5 @@
 import { IProductVariant } from "@/@types/IProduct";
-import { useCartStore } from "@/zustand/cart-storage";
+import { useCartStore } from "@/zustand/cart-store";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 

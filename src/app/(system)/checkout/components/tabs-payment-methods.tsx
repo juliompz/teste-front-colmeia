@@ -35,15 +35,15 @@ const TabsPaymentMethods = () => {
         </TabsTrigger>
       </TabsList>
 
-      <TabsContent value="credit_card" className="flex md:justify-center">
+      <TabsContent value="credit_card">
         <TabCreditCard />
       </TabsContent>
 
-      <TabsContent value="pix" className="flex md:justify-center">
+      <TabsContent value="pix">
         <TabPix />
       </TabsContent>
 
-      <TabsContent value="boleto" className="flex md:justify-center">
+      <TabsContent value="boleto">
         <TabBoleto />
       </TabsContent>
     </Tabs>

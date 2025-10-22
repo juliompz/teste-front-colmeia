@@ -12,10 +12,12 @@ const TabCreditCard = () => {
   });
 
   return (
-    <div>
-      <CreditCard value={card} onChange={setCard} />
-      <div className="flex justify-end">
-        <Button>Finalizar compra</Button>
+    <div className="flex md:justify-center">
+      <div>
+        <CreditCard value={card} onChange={setCard} />
+        <div className="flex justify-end">
+          <Button>Finalizar compra</Button>
+        </div>
       </div>
     </div>
   );

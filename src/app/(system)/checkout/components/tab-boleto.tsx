@@ -11,7 +11,7 @@ const TabBoleto = () => {
     setShowBoletoInfo(true);
   };
   return (
-    <div>
+    <div className="flex md:justify-center">
       {showBoletoInfo ? (
         <ShowBoletoInfo />
       ) : (
@@ -33,7 +33,7 @@ const TabBoleto = () => {
             </div>
           </div>
           <Button className="w-full mt-6" onClick={handleGerarBoleto}>
-            Gerar Boleto
+            Finalizar compra
           </Button>
         </div>
       )}

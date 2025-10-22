@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatMoneyBrl } from "@/utils/format-money-brl";
-import { useCartStore } from "@/zustand/cart-storage";
+import { useCartStore } from "@/zustand/cart-store";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import React from "react";
 import { TabsPaymentMethods } from "./tabs-payment-methods";
@@ -54,12 +54,6 @@ const ResumeItemsCheckout = () => {
           <TabsPaymentMethods />
         </div>
       </CardContent>
-      {/* <CardFooter className="flex justify-between">
-        <Button>
-          <ArrowBigRight />
-          Prosseguir
-        </Button>
-      </CardFooter> */}
     </Card>
   );
 };

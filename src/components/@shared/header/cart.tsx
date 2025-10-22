@@ -17,9 +17,9 @@ import {
 import { CartItem } from "./cart-item";
 import { formatMoneyBrl } from "@/utils/format-money-brl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAuthStore } from "@/zustand/auth-storage";
+import { useAuthStore } from "@/zustand/auth-store";
 import { IUser } from "@/@types/IUser";
-import { useCartStore } from "@/zustand/cart-storage";
+import { useCartStore } from "@/zustand/cart-store";
 
 export const Cart = () => {
   const { user, logout } = useAuthStore();

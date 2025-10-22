@@ -2,15 +2,18 @@ import { PageContainer } from "@/components/@shared/page-container/page-containe
 import React from "react";
 
 import { ResumeItemsCheckout } from "./components/resume-items-checkout";
+import { CheckoutAddress } from "./components/checkout-address";
 
 const Page = () => {
   return (
     <PageContainer>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col gap-4 md:flex-row-reverse">
+        <div className="md:w-[30%]">
+          <CheckoutAddress />
+        </div>
         <div className="md:w-[70%]">
           <ResumeItemsCheckout />
         </div>
-        <div className="md:w-[30%]"></div>
       </div>
     </PageContainer>
   );
