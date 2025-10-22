@@ -121,7 +121,7 @@ const CartContentItems = ({
           </div>
 
           <Button className="mt-5 rounded-full" asChild>
-            <Link href="/cart/identification">Finalizar compra</Link>
+            <Link href="/checkout">Finalizar compra</Link>
           </Button>
         </div>
       )}
