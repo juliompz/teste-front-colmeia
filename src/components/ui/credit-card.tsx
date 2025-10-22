@@ -521,7 +521,7 @@ function CreditCard({
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium mb-2">
-            Cardholder Name
+            Nome do titular
           </label>
           <Input
             ref={cardholderInputRef}
@@ -548,7 +548,9 @@ function CreditCard({
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-2">Card Number</label>
+          <label className="block text-sm font-medium mb-2">
+            Número do cartão
+          </label>
           <Input
             ref={cardNumberInputRef}
             type="text"
@@ -571,7 +573,7 @@ function CreditCard({
 
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-2">Month</label>
+            <label className="block text-sm font-medium mb-2">Mês</label>
             <Select
               value={currentValue.expiryMonth}
               onValueChange={(value) => handleInputChange("expiryMonth", value)}
@@ -601,7 +603,7 @@ function CreditCard({
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">Year</label>
+            <label className="block text-sm font-medium mb-2">Ano</label>
             <Select
               value={currentValue.expiryYear}
               onValueChange={(value) => handleInputChange("expiryYear", value)}

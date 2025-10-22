@@ -1,8 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CreditCardIcon, FileText, QrCode } from "lucide-react";
 import React from "react";
-import { CreditCard } from "../../../../components/ui/credit-card";
 import { TabCreditCard } from "./tab-credit-card";
+import { TabPix } from "./tab-pix";
+import { TabBoleto } from "./tab-boleto";
 
 const TabsPaymentMethods = () => {
   return (
@@ -36,6 +37,14 @@ const TabsPaymentMethods = () => {
 
       <TabsContent value="credit_card" className="flex md:justify-center">
         <TabCreditCard />
+      </TabsContent>
+
+      <TabsContent value="pix" className="flex md:justify-center">
+        <TabPix />
+      </TabsContent>
+
+      <TabsContent value="boleto" className="flex md:justify-center">
+        <TabBoleto />
       </TabsContent>
     </Tabs>
   );
