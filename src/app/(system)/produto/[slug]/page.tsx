@@ -5,6 +5,7 @@ import { PageContainer } from "@/components/@shared/page-container/page-containe
 import { formatMoneyBrl } from "@/utils/format-money-brl";
 import { ProductActions } from "./components/product-actions";
 import { IProductVariant } from "@/@types/IProduct";
+import { LikelyProducts } from "./components/list-likely-products/list-likely-products";
 
 interface ProductVariantPageProps {
   params: Promise<{ slug: string }>;
@@ -15,6 +16,7 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
 
   const produtos = mockProducts.flatMap((product) => {
     return product.variants.map((variant) => ({
+      ...product,
       ...variant,
     }));
   });
@@ -67,15 +69,8 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
             />
           </div>
         </div>
-
-        {/* 
-
-
-
-        <ProductList title="Talvez você goste" products={likelyProducts} />
-
-       */}
       </div>
+      <LikelyProducts categoryId={produto?.categoryId ?? 0} />
     </PageContainer>
   );
 };

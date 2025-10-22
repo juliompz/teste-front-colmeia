@@ -3,7 +3,7 @@ import { ListBrands } from "./components/list-brands";
 import { PageContainer } from "@/components/@shared/page-container/page-container";
 import { ListBestSellingProduct } from "./components/list-best-selling";
 import { ListNewProducts } from "./components/list-new-products";
-import { Footer } from "./components/footer";
+import { Footer } from "../../components/@shared/footer";
 
 export default async function Page() {
   return (

@@ -1,6 +1,6 @@
 import { Header } from "@/components/@shared/header/header";
 import React from "react";
-import { Footer } from "./components/footer";
+import { Footer } from "../../components/@shared/footer";
 
 export default function RootLayout({
   children,

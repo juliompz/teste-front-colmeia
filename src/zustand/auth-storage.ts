@@ -1,11 +1,11 @@
 // stores/auth-store.ts
-import { User } from "@/@types/IUser";
+import { IUser } from "@/@types/IUser";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface AuthState {
-  users_list: User[];
-  user: User | null;
+  users_list: IUser[];
+  user: IUser | null;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -18,6 +18,7 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       login: async (email, password) => {
         const users = get().users_list;
+
         const foundUser = users.find(
           (user) => user.email === email && user.password === password
         );
@@ -25,7 +26,6 @@ export const useAuthStore = create<AuthState>()(
         if (!foundUser) {
           throw new Error("Usuário ou senha inválidos");
         }
-
         set({ user: foundUser });
       },
 

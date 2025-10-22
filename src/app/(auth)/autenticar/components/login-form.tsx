@@ -31,7 +31,7 @@ const loginSchema = z.object({
 });
 
 const LoginForm = () => {
-  const { mutateAsync: login } = useLogin();
+  const { mutateAsync: login, isPending } = useLogin();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -87,7 +87,12 @@ const LoginForm = () => {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <Button className="w-full cursor-pointer" size="lg" type="submit">
+            <Button
+              className="w-full cursor-pointer"
+              size="lg"
+              type="submit"
+              disabled={isPending}
+            >
               Entrar
             </Button>
           </CardFooter>

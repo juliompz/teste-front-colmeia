@@ -6,7 +6,7 @@ import { toast } from "sonner";
 const useLogin = () => {
   const { login } = useAuthStore();
   const { push } = useRouter();
-  const { mutateAsync } = useMutation({
+  return useMutation({
     mutationFn: async ({
       email,
       password,
@@ -24,7 +24,6 @@ const useLogin = () => {
       push("/");
     },
   });
-  return { mutateAsync };
 };
 
 export { useLogin };
