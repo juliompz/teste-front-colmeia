@@ -14,4 +14,5 @@ export interface IProductVariant {
   priceInCents: number;
   imageUrl: string;
   slug: string;
+  productId: number;
 }

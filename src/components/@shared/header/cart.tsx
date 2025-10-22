@@ -1,6 +1,6 @@
 "use client";
 
-import { ShoppingBasketIcon } from "lucide-react";
+import { ChevronsUpDown, LogOut, ShoppingBasketIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -18,9 +18,11 @@ import {
 import CartItem from "./cart-item";
 import { cart } from "@/utils/mock-data";
 import { formatMoneyBrl } from "@/utils/format-money-brl";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const Cart = () => {
-  const userIsLogado = 0;
+  const userIsLogado = 1;
+
   // const { data: cart } = useCart();
   return (
     <Sheet>
@@ -40,8 +42,33 @@ export const Cart = () => {
 };
 
 const CartContentItems = () => {
+  const user = {
+    name: "Julio Cesar",
+    email: "julio@colmeia.com",
+  };
+
   return (
     <div className="flex h-full flex-col px-5 pb-5">
+      <div className="flex items-center justify-between gap-4 mb-2 ">
+        <Avatar className="h-8 w-8 rounded-lg">
+          <AvatarImage
+            alt={user?.name}
+            // src={userResult?.avatar}
+          />
+          <AvatarFallback className="rounded-lg text-primary">
+            {user?.name?.charAt(0).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+        <div className="grid flex-1 text-left text-sm leading-tight">
+          <span className="truncate font-medium">{user?.name}</span>
+          <span className="truncate text-xs">{user?.email}</span>
+        </div>
+
+        <Button variant={"outline"}>
+          <LogOut className="ml-auto size-4" />
+        </Button>
+      </div>
+      <Separator className="my-2" />
       <div className="flex h-full max-h-full flex-col overflow-hidden">
         <ScrollArea className="h-full">
           <div className="flex h-full flex-col gap-8">
@@ -61,7 +88,6 @@ const CartContentItems = () => {
           </div>
         </ScrollArea>
       </div>
-
       {cart?.items && cart?.items.length > 0 && (
         <div className="flex flex-col gap-4">
           <Separator />

@@ -1,16 +1,14 @@
 import Image from "next/image";
-import { ListBrands } from "./components/list-brands/list-brands";
+import { ListBrands } from "./components/list-brands";
 import { PageContainer } from "@/components/@shared/page-container/page-container";
-import { Header } from "@/components/@shared/header/header";
-import { ListBestSellingProduct } from "./components/list-best-selling/list-best-selling";
-import { ListNewProducts } from "./components/list-new-products/list-new-products";
-import { Footer } from "./components/footer/footer";
+import { ListBestSellingProduct } from "./components/list-best-selling";
+import { ListNewProducts } from "./components/list-new-products";
+import { Footer } from "./components/footer";
 
 export default async function Page() {
   return (
     <div>
       <PageContainer>
-        <Header />
         <div className="px-5">
           <Image
             src="/images/banner-shop.webp"
@@ -38,8 +36,6 @@ export default async function Page() {
           <ListNewProducts />
         </div>
       </PageContainer>
-
-      <Footer />
     </div>
   );
 }

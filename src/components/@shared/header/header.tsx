@@ -3,10 +3,11 @@ import { ThemeToggle } from "../../theme-toggle/theme-toggle";
 import { NavigationMenuItems } from "./navigation-menu";
 import Image from "next/image";
 import { Cart } from "./cart";
+import { PageContainer } from "../page-container/page-container";
 
 const Header = () => {
   return (
-    <>
+    <PageContainer>
       <header className="flex h-16 shrink-0 items-center gap-2 justify-between px-4">
         <div className="flex items-center gap-2 ">
           <Link href="/">
@@ -27,7 +28,7 @@ const Header = () => {
       <div className="flex flex-row gap-4 px-4 justify-center">
         <NavigationMenuItems />
       </div>
-    </>
+    </PageContainer>
   );
 };
 
