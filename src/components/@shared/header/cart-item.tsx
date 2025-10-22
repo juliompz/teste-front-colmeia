@@ -9,11 +9,14 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { formatMoneyBrl } from "@/utils/format-money-brl";
+import { useDeleteItemCart } from "@/hooks/cart/use-delete-item-cart";
+import { useDecreaseItemCart } from "@/hooks/cart/use-decrease-item-cart";
+import { useIncreaseItemCart } from "@/hooks/cart/use-increase-item-cart";
 
 interface CartItemProps {
-  id: string;
+  id: number;
   productName: string;
-  productVariantId: string;
+  productVariantId: number;
   productVariantName: string;
   productVariantImageUrl: string;
   productVariantPriceInCents: number;
@@ -29,36 +32,17 @@ const CartItem = ({
   productVariantPriceInCents,
   quantity,
 }: CartItemProps) => {
-  // const removeProductFromCartMutation = useRemoveProductFromCart(id);
-  // const decreaseCartProductQuantityMutation = useDecreaseCartProduct(id);
-  // const increaseCartProductQuantityMutation =
-  //   useIncreaseCartProduct(productVariantId);
+  const { mutateAsync: deleteItem } = useDeleteItemCart();
+  const { mutateAsync: decreaseItem } = useDecreaseItemCart();
+  const { mutateAsync: increaseItem } = useIncreaseItemCart();
   const handleDeleteClick = () => {
-    // removeProductFromCartMutation.mutate(undefined, {
-    //   onSuccess: () => {
-    //     toast.success("Produto removido do carrinho.");
-    //   },
-    //   onError: () => {
-    //     toast.error("Erro ao remover produto do carrinho.");
-    //   },
-    // });
-    toast.success("Quantidade do produto aumentada.");
+    deleteItem(productVariantId);
   };
-  const handleDecreaseQuantityClick = () => {
-    // decreaseCartProductQuantityMutation.mutate(undefined, {
-    //   onSuccess: () => {
-    //     toast.success("Quantidade do produto diminuida.");
-    //   },
-    // });
-    toast.success("Quantidade do produto aumentada.");
+  const handleDecreaseQuantityClick = async () => {
+    await decreaseItem(productVariantId);
   };
   const handleIncreaseQuantityClick = () => {
-    // increaseCartProductQuantityMutation.mutate(undefined, {
-    //   onSuccess: () => {
-    //     toast.success("Quantidade do produto aumentada.");
-    //   },
-    // });
-    toast.success("Quantidade do produto aumentada.");
+    increaseItem(productVariantId);
   };
 
   return (
@@ -107,4 +91,4 @@ const CartItem = ({
   );
 };
 
-export default CartItem;
+export { CartItem };

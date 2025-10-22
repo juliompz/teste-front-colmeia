@@ -1,10 +1,9 @@
 "use client";
 
-import { ChevronsUpDown, LogOut, ShoppingBasketIcon } from "lucide-react";
+import { LogOut, ShoppingBasketIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-// import { useCart } from "@/hooks/queries/use-cart";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -15,17 +14,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import CartItem from "./cart-item";
-import { cart } from "@/utils/mock-data";
+import { CartItem } from "./cart-item";
 import { formatMoneyBrl } from "@/utils/format-money-brl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuthStore } from "@/zustand/auth-storage";
-import { User } from "@/@types/IUser";
+import { IUser } from "@/@types/IUser";
+import { useCartStore } from "@/zustand/cart-storage";
 
 export const Cart = () => {
   const { user, logout } = useAuthStore();
 
-  // const { data: cart } = useCart();
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -51,17 +49,16 @@ const CartContentItems = ({
   user,
   logout,
 }: {
-  user: User;
+  user: IUser;
   logout: () => void;
 }) => {
+  const { items, totalPriceInCents } = useCartStore();
+
   return (
     <div className="flex h-full flex-col px-5 pb-5">
       <div className="flex items-center justify-between gap-4 mb-2 ">
         <Avatar className="h-8 w-8 rounded-lg">
-          <AvatarImage
-            alt={user?.name}
-            // src={userResult?.avatar}
-          />
+          <AvatarImage alt={user?.name} />
           <AvatarFallback className="rounded-lg text-primary">
             {user?.name?.charAt(0).toUpperCase()}
           </AvatarFallback>
@@ -77,31 +74,36 @@ const CartContentItems = ({
       </div>
       <Separator className="my-2" />
       <div className="flex h-full max-h-full flex-col overflow-hidden">
-        <ScrollArea className="h-full">
-          <div className="flex h-full flex-col gap-8">
-            {cart?.items.map((item) => (
-              <CartItem
-                key={item.id}
-                id={item.id}
-                productVariantId={item.productVariant.id}
-                // productName={item.productVariant.product.name}
-                productName={item.productVariant.name}
-                productVariantName={item.productVariant.name}
-                productVariantImageUrl={item.productVariant.imageUrl}
-                productVariantPriceInCents={item.productVariant.priceInCents}
-                quantity={item.quantity}
-              />
-            ))}
-          </div>
-        </ScrollArea>
+        {!items || items.length === 0 ? (
+          <p className="text-center text-sm font-medium">
+            Carrinho vazio, adicione algum produto :)
+          </p>
+        ) : (
+          <ScrollArea className="h-full">
+            <div className="flex h-full flex-col gap-8">
+              {items.map((item) => (
+                <CartItem
+                  key={item.id}
+                  id={item.id}
+                  productVariantId={item.productVariant.id}
+                  productName={item.productVariant.name}
+                  productVariantName={item.productVariant.name}
+                  productVariantImageUrl={item.productVariant.imageUrl}
+                  productVariantPriceInCents={item.productVariant.priceInCents}
+                  quantity={item.quantity}
+                />
+              ))}
+            </div>
+          </ScrollArea>
+        )}
       </div>
-      {cart?.items && cart?.items.length > 0 && (
+      {items && items.length > 0 && (
         <div className="flex flex-col gap-4">
           <Separator />
 
           <div className="flex items-center justify-between text-xs font-medium">
             <p>Subtotal</p>
-            <p>{formatMoneyBrl(cart?.totalPriceInCents ?? 0)}</p>
+            <p>{formatMoneyBrl(totalPriceInCents ?? 0)}</p>
           </div>
 
           <Separator />
@@ -115,7 +117,7 @@ const CartContentItems = ({
 
           <div className="flex items-center justify-between text-xs font-medium">
             <p>Total</p>
-            <p>{formatMoneyBrl(cart?.totalPriceInCents ?? 0)}</p>
+            <p>{formatMoneyBrl(totalPriceInCents ?? 0)}</p>
           </div>
 
           <Button className="mt-5 rounded-full" asChild>

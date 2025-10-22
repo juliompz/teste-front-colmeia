@@ -3,10 +3,8 @@ import Image from "next/image";
 import { VariantSelector } from "./components/variant-selector";
 import { PageContainer } from "@/components/@shared/page-container/page-container";
 import { formatMoneyBrl } from "@/utils/format-money-brl";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { MinusIcon, PlusIcon, ShoppingCart } from "lucide-react";
 import { ProductActions } from "./components/product-actions";
+import { IProductVariant } from "@/@types/IProduct";
 
 interface ProductVariantPageProps {
   params: Promise<{ slug: string }>;
@@ -64,7 +62,9 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
               </p>
             </div>
 
-            <ProductActions productVariantId={produto?.id ?? 0} />
+            <ProductActions
+              productVariant={produto ?? ({} as IProductVariant)}
+            />
           </div>
         </div>
 
