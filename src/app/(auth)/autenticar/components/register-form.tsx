@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useCreateUser } from "@/hooks/auth/use-create-user";
 import { formatCPF } from "@/utils/masks/format-cpf";
 import { formatPhone } from "@/utils/masks/format-phone";
 // import { useCreateUser } from "@/hooks/auth/user/useCreate/useCreateUser";
@@ -30,19 +31,16 @@ import { z } from "zod";
 
 export const registerSchema = z
   .object({
-    confirmaSenha: z
+    confirmPassword: z
       .string()
       .min(8, "A senha deve ter pelo menos 8 caracteres"),
-    cpf: z.string().min(14, "CPF deve ter 11 dígitos"),
     email: z.email("E-mail inválido"),
-    nome: z.string().min(1, "Nome é obrigatório"),
-    senha: z.string().min(8, "A senha deve ter pelo menos 8 caracteres"),
-    telefone: z.string().min(1, "Telefone é obrigatório"),
-    tipo_usuario: z.string().min(1, "Tipo de usuário é obrigatório"),
+    name: z.string().min(1, "Nome é obrigatório"),
+    password: z.string().min(8, "A senha deve ter pelo menos 8 caracteres"),
   })
-  .refine((data) => data.senha === data.confirmaSenha, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "As senhas não coincidem",
-    path: ["confirmaSenha"],
+    path: ["confirmPassword"],
   });
 
 const RegisterForm = () => {
@@ -54,25 +52,25 @@ const RegisterForm = () => {
     password: false,
   });
 
-  // const { mutateAsync: createUser } = useCreateUser([]);
+  const { mutateAsync: createUser } = useCreateUser();
 
   const router = useRouter();
   const form = useForm<z.infer<typeof registerSchema>>({
     defaultValues: {
-      confirmaSenha: "",
-      cpf: "",
+      confirmPassword: "",
       email: "",
-      nome: "",
-      senha: "",
-      telefone: "",
-      tipo_usuario: "PROFESSOR",
+      name: "",
+      password: "",
     },
     resolver: zodResolver(registerSchema),
   });
 
   async function onSubmit(values: z.infer<typeof registerSchema>) {
-    // await createUser(values);
-    router.push("/entrar");
+    await createUser({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    });
   }
 
   return (
@@ -89,7 +87,7 @@ const RegisterForm = () => {
             <div className="flex flex-col gap-4">
               <FormField
                 control={form.control}
-                name="nome"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Nome</FormLabel>
@@ -117,50 +115,10 @@ const RegisterForm = () => {
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <FormField
-                  control={form.control}
-                  name="cpf"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>CPF</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          onChange={(e) => {
-                            field.onChange(formatCPF(e.target.value));
-                          }}
-                          placeholder="000.000.000-00"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="telefone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Telefone</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          onChange={(e) => {
-                            field.onChange(formatPhone(e.target.value));
-                          }}
-                          placeholder="(00) 00000-0000"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2"></div>
               <FormField
                 control={form.control}
-                name="senha"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Senha</FormLabel>
@@ -201,7 +159,7 @@ const RegisterForm = () => {
               />
               <FormField
                 control={form.control}
-                name="confirmaSenha"
+                name="confirmPassword"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Confirmar Senha</FormLabel>

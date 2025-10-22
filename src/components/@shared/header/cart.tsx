@@ -19,9 +19,11 @@ import CartItem from "./cart-item";
 import { cart } from "@/utils/mock-data";
 import { formatMoneyBrl } from "@/utils/format-money-brl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuthStore } from "@/zustand/auth-storage";
+import { User } from "@/@types/IUser";
 
 export const Cart = () => {
-  const userIsLogado = 1;
+  const { user, logout } = useAuthStore();
 
   // const { data: cart } = useCart();
   return (
@@ -35,18 +37,23 @@ export const Cart = () => {
         <SheetHeader>
           <SheetTitle>Carrinho</SheetTitle>
         </SheetHeader>
-        {userIsLogado ? <CartContentItems /> : <NotUserLoggedIn />}
+        {user?.id ? (
+          <CartContentItems user={user} logout={logout} />
+        ) : (
+          <NotUserLoggedIn />
+        )}
       </SheetContent>
     </Sheet>
   );
 };
 
-const CartContentItems = () => {
-  const user = {
-    name: "Julio Cesar",
-    email: "julio@colmeia.com",
-  };
-
+const CartContentItems = ({
+  user,
+  logout,
+}: {
+  user: User;
+  logout: () => void;
+}) => {
   return (
     <div className="flex h-full flex-col px-5 pb-5">
       <div className="flex items-center justify-between gap-4 mb-2 ">
@@ -64,7 +71,7 @@ const CartContentItems = () => {
           <span className="truncate text-xs">{user?.email}</span>
         </div>
 
-        <Button variant={"outline"}>
+        <Button variant={"outline"} onClick={logout}>
           <LogOut className="ml-auto size-4" />
         </Button>
       </div>

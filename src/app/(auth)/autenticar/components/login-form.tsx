@@ -23,24 +23,25 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useLogin } from "@/hooks/auth/use-login";
 
 const loginSchema = z.object({
   email: z.email("Email inválido"),
-  senha: z.string().min(8, "Senha deve ter pelo menos 8 caracteres"),
+  password: z.string().min(8, "Senha deve ter pelo menos 8 caracteres"),
 });
 
 const LoginForm = () => {
-  // const { mutateAsync: login } = useLogin();
+  const { mutateAsync: login } = useLogin();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
-      senha: "",
+      password: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
-    // await login({ email: values.email, password: values.senha });
+    await login({ email: values.email, password: values.password });
   }
 
   return (
@@ -70,17 +71,9 @@ const LoginForm = () => {
               />
             </div>
             <div className="space-y-1">
-              <div className="flex items-center justify-end">
-                <Link
-                  href="/forgot-senha"
-                  className="text-xs text-primary hover:underline"
-                >
-                  Esqueceu a senha?
-                </Link>
-              </div>
               <FormField
                 control={form.control}
-                name="senha"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Senha</FormLabel>
@@ -97,12 +90,6 @@ const LoginForm = () => {
             <Button className="w-full cursor-pointer" size="lg" type="submit">
               Entrar
             </Button>
-            <p className="mt-4 text-center text-sm text-muted-foreground">
-              Não tem uma conta?{" "}
-              <Link href="/register" className="text-primary hover:underline">
-                Registre-se
-              </Link>
-            </p>
           </CardFooter>
         </Card>
       </form>

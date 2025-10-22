@@ -4,6 +4,7 @@ import { MinusIcon, PlusIcon, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { AddProductToCartButton } from "../add-product-cart-button";
 
 // import AddToCartButton from "./add-to-cart-button";
 
@@ -39,16 +40,12 @@ const ProductActions = ({ productVariantId }: ProductActionsProps) => {
         </div>
       </div>
       <div className="flex flex-col space-y-4">
-        {/* <AddToCartButton
+        <AddProductToCartButton
           productVariantId={productVariantId}
           quantity={quantity}
-        /> */}
+        />
         <Button className="rounded-full cursor-pointer" size="lg">
           Comprar agora
-        </Button>
-        <Button className="w-full cursor-pointer" variant={"outline"} size="lg">
-          <ShoppingCart className="mr-2 h-5 w-5" />
-          Adicionar ao carrinho
         </Button>
       </div>
     </>
