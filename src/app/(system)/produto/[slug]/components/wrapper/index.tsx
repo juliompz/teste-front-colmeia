@@ -68,8 +68,8 @@ const Wrapper = ({ slug }: { slug: string }) => {
   }
 
   return (
-    <>
-      <div className="flex flex-col space-y-6 md:flex-row space-x-6">
+    <div>
+      <div className="flex flex-col space-y-6 md:flex-row space-x-6 pb-6">
         <div className="w-full md:w-1/2">
           <Image
             src={productVariant?.imageUrl ?? ""}
@@ -112,7 +112,7 @@ const Wrapper = ({ slug }: { slug: string }) => {
         </div>
       </div>
       <LikelyProducts categoryId={productVariant?.product.categoryId ?? 0} />
-    </>
+    </div>
   );
 };
 

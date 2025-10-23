@@ -1,4 +1,8 @@
 import { ProductList } from "@/components/@shared/product-list";
+import {
+  PRODUCT_LIKELY_PRODUCTS_KEY,
+  useGetLikelyProducts,
+} from "@/hooks/products/use-get-likely-products";
 import { mockProducts } from "@/utils/mock-data";
 import React from "react";
 
@@ -7,21 +11,20 @@ interface LikelyProductsProps {
 }
 
 const LikelyProducts = ({ categoryId }: LikelyProductsProps) => {
-  const products = mockProducts.flatMap((product) => {
-    return product.variants.map((variant) => ({
-      ...product,
-      ...variant,
-    }));
-  });
-
-  const filteredProducts = products.filter(
-    (product) => product.categoryId === categoryId
-  );
+  const {
+    data: products,
+    isError,
+    isLoading,
+  } = useGetLikelyProducts(categoryId);
 
   return (
-    <div>
-      <ProductList title="Talvez você goste" products={filteredProducts} />
-    </div>
+    <ProductList
+      title="Talvez você goste"
+      products={products ?? []}
+      isError={isError}
+      isLoading={isLoading}
+      refetchQueryKey={PRODUCT_LIKELY_PRODUCTS_KEY(categoryId)}
+    />
   );
 };
 
