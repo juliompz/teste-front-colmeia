@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { ThemeToggle } from "../../theme-toggle/theme-toggle";
-import { NavigationMenuItems } from "./navigation-menu";
+
 import Image from "next/image";
-import { Cart } from "./cart";
-import { PageContainer } from "../page-container";
+import { PageContainer } from "@/components/@shared/page-container";
+import { ThemeToggle } from "@/components/theme-toggle/theme-toggle";
 
 const Header = () => {
   return (
@@ -21,13 +20,8 @@ const Header = () => {
         </div>
         <div>
           <ThemeToggle />
-          <Cart />
         </div>
       </header>
-
-      <div className="flex flex-row gap-4 px-4 justify-center">
-        <NavigationMenuItems />
-      </div>
     </PageContainer>
   );
 };

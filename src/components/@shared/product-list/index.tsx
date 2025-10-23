@@ -1,7 +1,7 @@
 "use client";
 
 import { IProduct } from "@/@types/IProduct";
-import ProductItem from "../product-item/product-item";
+import ProductItem from "../product-item";
 
 interface ProductListProps {
   title: string;

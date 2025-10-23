@@ -1,4 +1,4 @@
-import { ProductList } from "@/components/@shared/product-list/product-list";
+import { ProductList } from "@/components/@shared/product-list";
 import { mockProducts } from "@/utils/mock-data";
 import React from "react";
 

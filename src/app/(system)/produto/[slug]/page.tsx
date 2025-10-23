@@ -1,7 +1,7 @@
 import { mockProducts } from "@/utils/mock-data";
 import Image from "next/image";
 import { VariantSelector } from "./components/variant-selector";
-import { PageContainer } from "@/components/@shared/page-container/page-container";
+import { PageContainer } from "@/components/@shared/page-container";
 import { formatMoneyBrl } from "@/utils/format-money-brl";
 import { ProductActions } from "./components/product-actions";
 import { IProductVariant } from "@/@types/IProduct";

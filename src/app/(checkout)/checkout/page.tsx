@@ -1,4 +1,4 @@
-import { PageContainer } from "@/components/@shared/page-container/page-container";
+import { PageContainer } from "@/components/@shared/page-container";
 import React from "react";
 
 import { ResumeItemsCheckout } from "./components/resume-items-checkout";

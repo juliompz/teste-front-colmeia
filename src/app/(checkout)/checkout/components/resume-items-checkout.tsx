@@ -25,6 +25,7 @@ const ResumeItemsCheckout = () => {
           <div className="flex h-full flex-col gap-8">
             {items.map((item) => (
               <CartItem
+                disableActions
                 key={item.id}
                 id={item.id}
                 productVariantId={item.productVariant.id}

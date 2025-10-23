@@ -3,7 +3,7 @@ import { LoginForm } from "./components/login-form";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RegisterForm } from "./components/register-form";
-import { PageContainer } from "@/components/@shared/page-container/page-container";
+import { PageContainer } from "@/components/@shared/page-container";
 
 const Page = () => {
   return (

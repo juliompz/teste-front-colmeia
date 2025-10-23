@@ -9,6 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAddAddress } from "@/hooks/address/use-add-address";
 import { formatCEP } from "@/utils/masks/format-cep";
 import { useAddressStore } from "@/zustand/address-store";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,7 +28,7 @@ const formSchema = z.object({
 });
 
 const AddNewAddressForm = () => {
-  const { addAddress } = useAddressStore();
+  const { mutateAsync: addAddress } = useAddAddress();
 
   const form = useForm({
     defaultValues: {
@@ -42,8 +43,9 @@ const AddNewAddressForm = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    addAddress(data);
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    await addAddress(data);
+    form.reset();
   };
 
   return (
