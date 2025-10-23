@@ -6,7 +6,7 @@ export const NEW_PRODUCTS_KEY = ["products", "new"];
 
 const useGetNewProducts = () => {
   const bestSellingProducts = mockProducts.filter(
-    (product) => product.best_selling === true
+    (product) => product.best_selling !== true
   );
 
   return useQuery({

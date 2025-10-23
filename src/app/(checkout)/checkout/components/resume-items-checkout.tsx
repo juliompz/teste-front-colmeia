@@ -49,7 +49,7 @@ const ResumeItemsCheckout = () => {
                 key={item.id}
                 id={item.id}
                 productVariantId={item.productVariant.id}
-                productName={item.productVariant.name}
+                productName={item.productVariant.productName}
                 productVariantName={item.productVariant.name}
                 productVariantImageUrl={item.productVariant.imageUrl}
                 productVariantPriceInCents={item.productVariant.priceInCents}

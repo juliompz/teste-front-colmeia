@@ -97,6 +97,7 @@ const CartContentItems = () => {
         ))}
       </div>
     );
+
   if (isError) {
     return <AlertErrorWithReload refetchQueryKey={PRODUCTS_CART_KEY} />;
   }
@@ -117,7 +118,7 @@ const CartContentItems = () => {
                   key={item.id}
                   id={item.id}
                   productVariantId={item.productVariant.id}
-                  productName={item.productVariant.name}
+                  productName={item.productVariant.productName}
                   productVariantName={item.productVariant.name}
                   productVariantImageUrl={item.productVariant.imageUrl}
                   productVariantPriceInCents={item.productVariant.priceInCents}

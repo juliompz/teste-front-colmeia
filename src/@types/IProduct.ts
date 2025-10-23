@@ -3,7 +3,6 @@ export interface IProduct {
   name: string;
   description: string;
   categoryId: number;
-
   best_selling?: boolean;
   variants: IProductVariant[];
 }
@@ -15,4 +14,5 @@ export interface IProductVariant {
   imageUrl: string;
   slug: string;
   productId: number;
+  productName: string;
 }

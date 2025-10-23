@@ -262,6 +262,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages.Mochila.Preta[0],
         slug: generateSlug("Mochila Preta"),
         productId: 1,
+        productName: "Mochila",
       },
       {
         id: 2,
@@ -270,6 +271,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages.Mochila.Branca[0],
         slug: generateSlug("Mochila Branca"),
         productId: 1,
+        productName: "Mochila",
       },
     ],
   },
@@ -286,6 +288,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Meia Alta"].Branca[0],
         slug: generateSlug("Meia Alta Branca"),
         productId: 2,
+        productName: "Meia Alta",
       },
       {
         id: 4,
@@ -294,6 +297,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Meia Alta"].Preta[0],
         slug: generateSlug("Meia Alta Preta"),
         productId: 2,
+        productName: "Meia Alta",
       },
     ],
   },
@@ -303,7 +307,6 @@ export const mockProducts: IProduct[] = [
     description: "Boné Nocta com design moderno e ajuste confortável.",
     categoryId: 1,
     best_selling: true,
-
     variants: [
       {
         id: 5,
@@ -312,6 +315,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Boné Nocta"].Preto[0],
         slug: generateSlug("Boné Nocta Preto"),
         productId: 3,
+        productName: "Boné Nocta",
       },
       {
         id: 6,
@@ -320,6 +324,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Boné Nocta"].Vinho[0],
         slug: generateSlug("Boné Nocta Vinho"),
         productId: 3,
+        productName: "Boné Nocta",
       },
       {
         id: 7,
@@ -328,6 +333,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Boné Nocta"].Azul[0],
         slug: generateSlug("Boné Nocta Azul"),
         productId: 3,
+        productName: "Boné Nocta",
       },
     ],
   },
@@ -344,6 +350,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Boné Curvo"].Azul[0],
         slug: generateSlug("Boné Curvo Azul"),
         productId: 4,
+        productName: "Boné Curvo",
       },
       {
         id: 9,
@@ -352,6 +359,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Boné Curvo"].Bege[0],
         slug: generateSlug("Boné Curvo Bege"),
         productId: 4,
+        productName: "Boné Curvo",
       },
       {
         id: 10,
@@ -360,6 +368,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Boné Curvo"].Verde[0],
         slug: generateSlug("Boné Curvo Verde"),
         productId: 4,
+        productName: "Boné Curvo",
       },
     ],
   },
@@ -380,6 +389,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Shorts Active"].Preto[0],
         slug: generateSlug("Shorts Active Preto"),
         productId: 5,
+        productName: "Shorts Active",
       },
       {
         id: 12,
@@ -388,6 +398,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Shorts Active"].Azul[0],
         slug: generateSlug("Shorts Active Azul"),
         productId: 5,
+        productName: "Shorts Active",
       },
       {
         id: 13,
@@ -396,6 +407,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Shorts Active"].Verde[0],
         slug: generateSlug("Shorts Active Verde"),
         productId: 5,
+        productName: "Shorts Active",
       },
     ],
   },
@@ -414,6 +426,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Shorts Core"].Verde[0],
         slug: generateSlug("Shorts Core Verde"),
         productId: 6,
+        productName: "Shorts Core",
       },
       {
         id: 15,
@@ -422,6 +435,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Shorts Core"].Preto[0],
         slug: generateSlug("Shorts Core Preto"),
         productId: 6,
+        productName: "Shorts Core",
       },
       {
         id: 16,
@@ -430,6 +444,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Shorts Core"].Azul[0],
         slug: generateSlug("Shorts Core Azul"),
         productId: 6,
+        productName: "Shorts Core",
       },
     ],
   },
@@ -447,6 +462,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Shorts Challenger"].Marrom[0],
         slug: generateSlug("Shorts Challenger Marrom"),
         productId: 7,
+        productName: "Shorts Challenger",
       },
       {
         id: 18,
@@ -455,6 +471,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Shorts Challenger"].Preto[0],
         slug: generateSlug("Shorts Challenger Preto"),
         productId: 7,
+        productName: "Shorts Challenger",
       },
       {
         id: 19,
@@ -463,6 +480,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Shorts Challenger"].Bege[0],
         slug: generateSlug("Shorts Challenger Bege"),
         productId: 7,
+        productName: "Shorts Challenger",
       },
     ],
   },
@@ -480,6 +498,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Bermuda Premier"].Verde[0],
         slug: generateSlug("Bermuda Premier Verde"),
         productId: 8,
+        productName: "Bermuda Premier",
       },
       {
         id: 21,
@@ -488,6 +507,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Bermuda Premier"].Preta[0],
         slug: generateSlug("Bermuda Premier Preta"),
         productId: 8,
+        productName: "Bermuda Premier",
       },
       {
         id: 22,
@@ -496,6 +516,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Bermuda Premier"].Azul[0],
         slug: generateSlug("Bermuda Premier Azul"),
         productId: 8,
+        productName: "Bermuda Premier",
       },
     ],
   },
@@ -517,6 +538,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Nike Club"].Bege[0],
         slug: generateSlug("Calça Nike Club Bege"),
         productId: 9,
+        productName: "Calça Nike Club",
       },
       {
         id: 24,
@@ -525,6 +547,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Nike Club"].Preta[0],
         slug: generateSlug("Calça Nike Club Preta"),
         productId: 9,
+        productName: "Calça Nike Club",
       },
       {
         id: 25,
@@ -533,6 +556,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Nike Club"].Vinho[0],
         slug: generateSlug("Calça Nike Club Vinho"),
         productId: 9,
+        productName: "Calça Nike Club",
       },
     ],
   },
@@ -550,6 +574,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Knit"].Preta[0],
         slug: generateSlug("Calça Knit Preta"),
         productId: 10,
+        productName: "Calça Knit",
       },
       {
         id: 27,
@@ -558,6 +583,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Knit"].Branca[0],
         slug: generateSlug("Calça Knit Branca"),
         productId: 10,
+        productName: "Calça Knit",
       },
       {
         id: 28,
@@ -566,6 +592,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Knit"].Azul[0],
         slug: generateSlug("Calça Knit Azul"),
         productId: 10,
+        productName: "Calça Knit",
       },
     ],
   },
@@ -583,6 +610,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Brooklin"].Bege[0],
         slug: generateSlug("Calça Brooklin Bege"),
         productId: 11,
+        productName: "Calça Brooklin",
       },
       {
         id: 30,
@@ -591,6 +619,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Brooklin"].Branca[0],
         slug: generateSlug("Calça Brooklin Branca"),
         productId: 11,
+        productName: "Calça Brooklin",
       },
       {
         id: 31,
@@ -599,6 +628,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Brooklin"].Preta[0],
         slug: generateSlug("Calça Brooklin Preta"),
         productId: 11,
+        productName: "Calça Brooklin",
       },
     ],
   },
@@ -618,6 +648,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Jordan"].Verde[0],
         slug: generateSlug("Calça Jordan Verde"),
         productId: 12,
+        productName: "Calça Jordan",
       },
       {
         id: 33,
@@ -626,6 +657,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Jordan"].Preta[0],
         slug: generateSlug("Calça Jordan Preta"),
         productId: 12,
+        productName: "Calça Jordan",
       },
       {
         id: 34,
@@ -634,6 +666,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Calça Jordan"].Azul[0],
         slug: generateSlug("Calça Jordan Azul"),
         productId: 12,
+        productName: "Calça Jordan",
       },
     ],
   },
@@ -654,6 +687,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Camiseta ACG"].Bege[0],
         slug: generateSlug("Camiseta ACG Bege"),
         productId: 13,
+        productName: "Camiseta ACG",
       },
       {
         id: 36,
@@ -662,6 +696,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Camiseta ACG"].Preta[0],
         slug: generateSlug("Camiseta ACG Preta"),
         productId: 13,
+        productName: "Camiseta ACG",
       },
       {
         id: 37,
@@ -670,6 +705,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Camiseta ACG"].Branca[0],
         slug: generateSlug("Camiseta ACG Branca"),
         productId: 13,
+        productName: "Camiseta ACG",
       },
     ],
   },
@@ -687,6 +723,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Camiseta Run"].Preta[0],
         slug: generateSlug("Camiseta Run Preta"),
         productId: 14,
+        productName: "Camiseta Run",
       },
       {
         id: 39,
@@ -695,6 +732,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Camiseta Run"].Azul[0],
         slug: generateSlug("Camiseta Run Azul"),
         productId: 14,
+        productName: "Camiseta Run",
       },
     ],
   },
@@ -712,6 +750,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Camiseta Active"].Branca[0],
         slug: generateSlug("Camiseta Active Branca"),
         productId: 15,
+        productName: "Camiseta Active",
       },
       {
         id: 41,
@@ -720,6 +759,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Camiseta Active"].Preta[0],
         slug: generateSlug("Camiseta Active Preta"),
         productId: 15,
+        productName: "Camiseta Active",
       },
     ],
   },
@@ -737,6 +777,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Camiseta Nature"].Preta[0],
         slug: generateSlug("Camiseta Nature Preta"),
         productId: 16,
+        productName: "Camiseta Nature",
       },
       {
         id: 43,
@@ -745,6 +786,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Camiseta Nature"].Azul[0],
         slug: generateSlug("Camiseta Nature Azul"),
         productId: 16,
+        productName: "Camiseta Nature",
       },
     ],
   },
@@ -764,6 +806,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Corta Vento"].Preto[0],
         slug: generateSlug("Corta Vento Preto"),
         productId: 17,
+        productName: "Corta Vento",
       },
       {
         id: 45,
@@ -772,6 +815,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Corta Vento"].Branco[0],
         slug: generateSlug("Corta Vento Branco"),
         productId: 17,
+        productName: "Corta Vento",
       },
     ],
   },
@@ -791,6 +835,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Jaqueta Windrunner"].Azul[0],
         slug: generateSlug("Jaqueta Windrunner Azul"),
         productId: 18,
+        productName: "Jaqueta Windrunner",
       },
       {
         id: 47,
@@ -799,6 +844,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Jaqueta Windrunner"].Bege[0],
         slug: generateSlug("Jaqueta Windrunner Bege"),
         productId: 18,
+        productName: "Jaqueta Windrunner",
       },
     ],
   },
@@ -816,6 +862,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Jaqueta Style"].Marrom[0],
         slug: generateSlug("Jaqueta Style Marrom"),
         productId: 19,
+        productName: "Jaqueta Style",
       },
       {
         id: 49,
@@ -824,6 +871,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Jaqueta Style"].Cinza[0],
         slug: generateSlug("Jaqueta Style Cinza"),
         productId: 19,
+        productName: "Jaqueta Style",
       },
     ],
   },
@@ -840,6 +888,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Jaqueta Nike Club"].Azul[0],
         slug: generateSlug("Jaqueta Nike Club Azul"),
         productId: 20,
+        productName: "Jaqueta Nike Club",
       },
       {
         id: 51,
@@ -848,6 +897,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Jaqueta Nike Club"].Amarela[0],
         slug: generateSlug("Jaqueta Nike Club Amarela"),
         productId: 20,
+        productName: "Jaqueta Nike Club",
       },
     ],
   },
@@ -868,6 +918,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Vomero"].Preto[0],
         slug: generateSlug("Tênis Nike Vomero Preto"),
         productId: 21,
+        productName: "Tênis Nike Vomero",
       },
       {
         id: 53,
@@ -876,6 +927,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Vomero"].Branco[0],
         slug: generateSlug("Tênis Nike Vomero Branco"),
         productId: 21,
+        productName: "Tênis Nike Vomero",
       },
       {
         id: 54,
@@ -884,6 +936,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Vomero"].Azul[0],
         slug: generateSlug("Tênis Nike Vomero Azul"),
         productId: 21,
+        productName: "Tênis Nike Vomero",
       },
     ],
   },
@@ -900,6 +953,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Panda"].Verde[0],
         slug: generateSlug("Tênis Nike Panda Verde"),
         productId: 22,
+        productName: "Tênis Nike Panda",
       },
       {
         id: 56,
@@ -908,6 +962,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Panda"].Azul[0],
         slug: generateSlug("Tênis Nike Panda Azul"),
         productId: 22,
+        productName: "Tênis Nike Panda",
       },
       {
         id: 57,
@@ -916,6 +971,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Panda"].Preto[0],
         slug: generateSlug("Tênis Nike Panda Preto"),
         productId: 22,
+        productName: "Tênis Nike Panda",
       },
     ],
   },
@@ -934,6 +990,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Air Force"].Preto[0],
         slug: generateSlug("Tênis Nike Air Force Preto"),
         productId: 23,
+        productName: "Tênis Nike Air Force",
       },
       {
         id: 59,
@@ -942,6 +999,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Air Force"].Branco[0],
         slug: generateSlug("Tênis Nike Air Force Branco"),
         productId: 23,
+        productName: "Tênis Nike Air Force",
       },
     ],
   },
@@ -959,6 +1017,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Dunk Low"].Branco[0],
         slug: generateSlug("Tênis Nike Dunk Low Branco"),
         productId: 24,
+        productName: "Tênis Nike Dunk Low",
       },
       {
         id: 61,
@@ -967,6 +1026,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Dunk Low"].Preto[0],
         slug: generateSlug("Tênis Nike Dunk Low Preto"),
         productId: 24,
+        productName: "Tênis Nike Dunk Low",
       },
       {
         id: 62,
@@ -975,6 +1035,7 @@ export const mockProducts: IProduct[] = [
         imageUrl: productImages["Tênis Nike Dunk Low"].Azul[0],
         slug: generateSlug("Tênis Nike Dunk Low Azul"),
         productId: 24,
+        productName: "Tênis Nike Dunk Low",
       },
     ],
   },

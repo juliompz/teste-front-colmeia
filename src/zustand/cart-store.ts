@@ -1,4 +1,3 @@
-// stores/cart-store.ts
 import { IProductVariant } from "@/@types/IProduct";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
