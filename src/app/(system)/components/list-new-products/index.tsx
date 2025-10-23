@@ -1,14 +1,23 @@
+"use client";
 import { ProductList } from "@/components/@shared/product-list";
-import { mockProducts } from "@/utils/mock-data";
+import {
+  NEW_PRODUCTS_KEY,
+  useGetNewProducts,
+} from "@/hooks/products/use-get-new-products";
 import React from "react";
 
 const ListNewProducts = () => {
-  // Para produtos mais vendidos, filtramos os que têm best_selling: true
-  const bestSellingProducts = mockProducts.filter(
-    (product) => product.best_selling === true
-  );
+  const { data: products, isError, isLoading } = useGetNewProducts();
 
-  return <ProductList title="Novos produtos" products={bestSellingProducts} />;
+  return (
+    <ProductList
+      title="Novos produtos"
+      products={products ?? []}
+      isError={isError}
+      isLoading={isLoading}
+      refetchQueryKey={NEW_PRODUCTS_KEY}
+    />
+  );
 };
 
 export { ListNewProducts };

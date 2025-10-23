@@ -3,7 +3,7 @@ import { IProductVariant } from "@/@types/IProduct";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface CartItem {
+export interface ICartItem {
   id: number;
   productVariant: IProductVariant;
   quantity: number;
@@ -11,7 +11,7 @@ interface CartItem {
 
 interface CartState {
   totalPriceInCents: number;
-  items: CartItem[];
+  items: ICartItem[];
   addItem: (product: IProductVariant, quantity: number) => void;
 
   decreaseItem: (productId: number) => void;

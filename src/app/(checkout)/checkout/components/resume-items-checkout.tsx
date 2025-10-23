@@ -8,13 +8,26 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatMoneyBrl } from "@/utils/format-money-brl";
-import { useCartStore } from "@/zustand/cart-store";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import React from "react";
 import { TabsPaymentMethods } from "./tabs-payment-methods";
+import {
+  PRODUCTS_CART_KEY,
+  useGetProductsCart,
+} from "@/hooks/cart/use-get-product-cart";
+import { Skeleton } from "@/components/ui/skeleton";
+import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 
 const ResumeItemsCheckout = () => {
-  const { items, totalPriceInCents } = useCartStore();
+  const { data: productsCart, isLoading, isError } = useGetProductsCart();
+
+  if (isError) {
+    return (
+      <Card className="flex flex-col gap-4 p-4 h-[30vh] justify-center">
+        <AlertErrorWithReload refetchQueryKey={PRODUCTS_CART_KEY} />
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -23,7 +36,14 @@ const ResumeItemsCheckout = () => {
         <ScrollArea className="h-full">
           <p className=" text-sm font-medium mb-1">Itens do carrinho</p>
           <div className="flex h-full flex-col gap-8">
-            {items.map((item) => (
+            {isLoading && (
+              <div className="flex h-full flex-col gap-8">
+                {[...Array(3)].map((_, i) => (
+                  <Skeleton key={i} className=" h-16 w-full rounded-lg " />
+                ))}
+              </div>
+            )}
+            {productsCart?.products.map((item) => (
               <CartItem
                 disableActions
                 key={item.id}
@@ -42,7 +62,7 @@ const ResumeItemsCheckout = () => {
         <div className="flex items-center justify-between my-6">
           <p className="text-md font-bold">Total</p>
           <p className="text-md font-bold">
-            {formatMoneyBrl(totalPriceInCents)}
+            {formatMoneyBrl(productsCart?.totalPriceInCents ?? 0)}
           </p>
         </div>
         <Separator className="my-2" />

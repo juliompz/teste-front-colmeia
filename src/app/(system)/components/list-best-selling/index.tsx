@@ -1,14 +1,23 @@
+"use client";
 import { ProductList } from "@/components/@shared/product-list";
-import { mockProducts } from "@/utils/mock-data";
+import {
+  BEST_SELLING_PRODUCTS,
+  useGetBestSellingProducts,
+} from "@/hooks/products/use-get-best-selling-products";
 import React from "react";
 
 const ListBestSellingProduct = () => {
-  // Para produtos mais vendidos, filtramos os que têm best_selling: true
-  const bestSellingProducts = mockProducts.filter(
-    (product) => product.best_selling === true
-  );
+  const { data: products, isError, isLoading } = useGetBestSellingProducts();
 
-  return <ProductList title="Mais vendidos" products={bestSellingProducts} />;
+  return (
+    <ProductList
+      title="Mais vendidos"
+      products={products ?? []}
+      isError={isError}
+      isLoading={isLoading}
+      refetchQueryKey={BEST_SELLING_PRODUCTS}
+    />
+  );
 };
 
 export { ListBestSellingProduct };
