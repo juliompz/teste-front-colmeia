@@ -1,12 +1,7 @@
+import { ICartItem } from "@/@types/ICart";
 import { IProductVariant } from "@/@types/IProduct";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-export interface ICartItem {
-  id: number;
-  productVariant: IProductVariant;
-  quantity: number;
-}
 
 interface CartState {
   totalPriceInCents: number;

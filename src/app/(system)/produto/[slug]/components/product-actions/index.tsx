@@ -6,6 +6,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AddProductToCartButton } from "../add-product-cart-button";
 import { IProductVariant } from "@/@types/IProduct";
+import { useCheckoutStore } from "@/zustand/checkout-store";
+import { useRouter } from "next/navigation";
+import { useCreateCheckout } from "@/hooks/checkout/use-create-checkout";
+import { CHECKOUT_STATUS_ENUM } from "@/@types/ICheckout";
 
 // import AddToCartButton from "./add-to-cart-button";
 
@@ -14,7 +18,19 @@ interface ProductActionsProps {
 }
 
 const ProductActions = ({ productVariant }: ProductActionsProps) => {
+  const { push } = useRouter();
   const [quantity, setQuantity] = useState(1);
+  const { mutateAsync: createCheckout } = useCreateCheckout();
+
+  const handleBuyNow = async () => {
+    const checkout = await createCheckout({
+      items: [
+        { id: Math.ceil(Math.random() * 10), productVariant, quantity: 1 },
+      ],
+      status: CHECKOUT_STATUS_ENUM.PENDENTE,
+    });
+    push(`/checkout/${checkout.id}`);
+  };
 
   const handleDecrement = () => {
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
@@ -45,7 +61,11 @@ const ProductActions = ({ productVariant }: ProductActionsProps) => {
           productVariant={productVariant}
           quantity={quantity}
         />
-        <Button className="rounded-full cursor-pointer" size="lg">
+        <Button
+          className="rounded-full cursor-pointer"
+          size="lg"
+          onClick={handleBuyNow}
+        >
           Comprar agora
         </Button>
       </div>

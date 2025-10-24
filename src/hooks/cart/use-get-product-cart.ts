@@ -1,4 +1,5 @@
-import { ICartItem, useCartStore } from "@/zustand/cart-store";
+import { ICartItem } from "@/@types/ICart";
+import { useCartStore } from "@/zustand/cart-store";
 import { useQuery } from "@tanstack/react-query";
 
 export const PRODUCTS_CART_KEY = ["cart", "products"];

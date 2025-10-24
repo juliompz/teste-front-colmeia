@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { ThemeToggle } from "../../theme-toggle/theme-toggle";
-import { NavigationMenuItems } from "./navigation-menu";
 import Image from "next/image";
 import { Cart } from "./cart";
 import { PageContainer } from "../page-container";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   return (
@@ -18,16 +18,13 @@ const Header = () => {
               height={26.14}
             />
           </Link>
-        </div>
-        <div>
           <ThemeToggle />
+        </div>
+        <div className="flex items-center gap-2 ">
+          <Button variant={"outline"}>Meus pedidos</Button>
           <Cart />
         </div>
       </header>
-
-      <div className="flex flex-row gap-4 px-4 justify-center">
-        <NavigationMenuItems />
-      </div>
     </PageContainer>
   );
 };

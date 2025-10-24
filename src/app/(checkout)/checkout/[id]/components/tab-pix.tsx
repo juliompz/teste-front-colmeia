@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Copy } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
+import Countdown from "react-countdown";
 
 const TabPix = () => {
   const [confirmed, setConfirmed] = useState(false);
@@ -42,11 +43,12 @@ const ShowBlurredQrCode = ({
 };
 
 const ShowQrCodeContent = () => {
+  const textCode =
+    "00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540589.965802BR5913Nome Completo6009SAO PAULO62070503***6304ABCD";
+
   const [pixCopied, setPixCopied] = useState(false);
   const handleCopyPix = () => {
-    navigator.clipboard.writeText(
-      "00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540589.965802BR5913Nome Completo6009SAO PAULO62070503***6304ABCD"
-    );
+    navigator.clipboard.writeText(textCode);
     setPixCopied(true);
     setTimeout(() => {
       setPixCopied(false);
@@ -55,6 +57,20 @@ const ShowQrCodeContent = () => {
 
   return (
     <div className="flex flex-col items-center py-6">
+      <div className="flex flex-col items-center ">
+        <Countdown
+          date={Date.now() + 1000 * 60 * 5} // 5 minutos
+          className="text-3xl"
+          autoStart
+          count={100000}
+          zeroPadTime={2}
+          daysInHours
+          // onComplete={}
+        />
+        <p className="text-sm text-muted-foreground text-center mb-4">
+          Você tem 5 minutos para efetuar o pagamento
+        </p>
+      </div>
       <div className="bg-white p-4 rounded-lg mb-4">
         <Image src="/images/qrCode.png" alt="PIX" width={200} height={300} />
       </div>
@@ -62,8 +78,7 @@ const ShowQrCodeContent = () => {
         Escaneie o QR Code com o app do seu banco ou copie o código abaixo
       </p>
       <div className="w-full bg-muted p-3 rounded-md mb-4 break-all text-xs font-mono">
-        00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540589.965802BR5913Nome
-        Completo6009SAO PAULO62070503***6304ABCD
+        {textCode}
       </div>
       <div className="space-y-2">
         <Button

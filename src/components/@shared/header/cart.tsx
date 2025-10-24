@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, ShoppingBasketIcon } from "lucide-react";
+import { LogOut, ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -25,15 +25,22 @@ import {
 } from "@/hooks/cart/use-get-product-cart";
 import { AlertErrorWithReload } from "../alert-error-with-reload";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useRouter } from "next/navigation";
+import { useCreateCheckout } from "@/hooks/checkout/use-create-checkout";
+import { toast } from "sonner";
+import { CHECKOUT_STATUS_ENUM } from "@/@types/ICheckout";
+import { useCartStore } from "@/zustand/cart-store";
+import { Badge } from "@/components/ui/badge";
 
 export const Cart = () => {
   const { user, logout } = useAuthStore();
-
+  const { items } = useCartStore();
   return (
     <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline" size="icon">
-          <ShoppingBasketIcon />
+      <SheetTrigger asChild className="px-2">
+        <Button variant="outline">
+          <ShoppingCartIcon />
+          <Badge variant={"outline"}>{items.length}</Badge>
         </Button>
       </SheetTrigger>
       <SheetContent>
@@ -87,7 +94,24 @@ const UserSection = ({
 };
 
 const CartContentItems = () => {
+  const { push } = useRouter();
   const { data: productsCart, isLoading, isError } = useGetProductsCart();
+  const { mutateAsync: createCheckout } = useCreateCheckout();
+
+  const emptyCart =
+    !productsCart?.products || productsCart?.products.length === 0;
+
+  const handleCheckout = async () => {
+    if (emptyCart) {
+      toast.error("Selecione pelo menos um produto");
+      return;
+    }
+    const checkout = await createCheckout({
+      items: productsCart?.products,
+      status: CHECKOUT_STATUS_ENUM.PENDENTE,
+    });
+    push(`/checkout/${checkout.id}`);
+  };
 
   if (isLoading)
     return (
@@ -106,7 +130,7 @@ const CartContentItems = () => {
     <div className="flex h-full flex-col px-5 pb-5">
       <Separator className="my-2" />
       <div className="flex h-full max-h-full flex-col overflow-hidden">
-        {!productsCart?.products || productsCart?.products.length === 0 ? (
+        {emptyCart ? (
           <p className="text-center text-sm font-medium">
             Carrinho vazio, adicione algum produto :)
           </p>
@@ -152,8 +176,12 @@ const CartContentItems = () => {
             <p>{formatMoneyBrl(productsCart?.totalPriceInCents ?? 0)}</p>
           </div>
 
-          <Button className="mt-5 rounded-full" asChild>
-            <Link href="/checkout">Finalizar compra</Link>
+          <Button
+            className="mt-5 rounded-full"
+            onClick={handleCheckout}
+            disabled={emptyCart}
+          >
+            Finalizar compra
           </Button>
         </div>
       )}

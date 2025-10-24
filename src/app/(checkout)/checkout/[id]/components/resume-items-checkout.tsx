@@ -17,9 +17,18 @@ import {
 } from "@/hooks/cart/use-get-product-cart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
+import { useGetProductCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
 
-const ResumeItemsCheckout = () => {
-  const { data: productsCart, isLoading, isError } = useGetProductsCart();
+interface ResumeItemsCheckoutProps {
+  checkoutId: string;
+}
+
+const ResumeItemsCheckout = ({ checkoutId }: ResumeItemsCheckoutProps) => {
+  const {
+    data: productsCheckout,
+    isLoading,
+    isError,
+  } = useGetProductCheckoutById(checkoutId);
 
   if (isError) {
     return (
@@ -43,7 +52,7 @@ const ResumeItemsCheckout = () => {
                 ))}
               </div>
             )}
-            {productsCart?.products.map((item) => (
+            {productsCheckout?.items.map((item) => (
               <CartItem
                 disableActions
                 key={item.id}
@@ -62,7 +71,7 @@ const ResumeItemsCheckout = () => {
         <div className="flex items-center justify-between my-6">
           <p className="text-md font-bold">Total</p>
           <p className="text-md font-bold">
-            {formatMoneyBrl(productsCart?.totalPriceInCents ?? 0)}
+            {formatMoneyBrl(productsCheckout?.totalPriceInCents ?? 0)}
           </p>
         </div>
         <Separator className="my-2" />

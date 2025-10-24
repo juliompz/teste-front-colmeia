@@ -4,7 +4,14 @@ import React from "react";
 import { ResumeItemsCheckout } from "./components/resume-items-checkout";
 import { CheckoutAddress } from "./components/checkout-address";
 
-const Page = () => {
+interface CheckoutPageProps {
+  params: {
+    id: string;
+  };
+}
+
+const Page = ({ params }: CheckoutPageProps) => {
+  const checkoutId = params.id;
   return (
     <PageContainer>
       <div className="flex flex-col gap-4 md:flex-row-reverse">
@@ -12,7 +19,7 @@ const Page = () => {
           <CheckoutAddress />
         </div>
         <div className="md:w-[70%]">
-          <ResumeItemsCheckout />
+          <ResumeItemsCheckout checkoutId={checkoutId} />
         </div>
       </div>
     </PageContainer>

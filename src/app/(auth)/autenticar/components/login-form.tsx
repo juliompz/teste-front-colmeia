@@ -78,7 +78,7 @@ const LoginForm = () => {
                   <FormItem>
                     <FormLabel>Senha</FormLabel>
                     <FormControl>
-                      <Input {...field} type="senha" />
+                      <Input {...field} type="password" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
