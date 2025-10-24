@@ -1,10 +1,24 @@
+import { PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Check, Copy } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import Countdown from "react-countdown";
 
-const TabPix = () => {
+interface TabPixProps {
+  handleFinishPurchase: (paymentMethod: PAYMENT_METHOD_ENUM) => void;
+}
+
+const TabPix = ({ handleFinishPurchase }: TabPixProps) => {
   const [confirmed, setConfirmed] = useState(false);
 
   const handleConfirm = () => {
@@ -13,11 +27,10 @@ const TabPix = () => {
 
   return (
     <div className="flex flex-col">
-      {confirmed ? (
-        <ShowQrCodeContent />
-      ) : (
-        <ShowBlurredQrCode handleConfirm={handleConfirm} />
+      {confirmed && (
+        <ShowQrCodeContent handleFinishPurchase={handleFinishPurchase} />
       )}
+      {!confirmed && <ShowBlurredQrCode handleConfirm={handleConfirm} />}
     </div>
   );
 };
@@ -37,12 +50,30 @@ const ShowBlurredQrCode = ({
         width={200}
         height={300}
       />
-      <Button onClick={handleConfirm}>Finalizar compra</Button>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button>Gerar codigo PIX</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Gerar código PIX</DialogTitle>
+            <DialogDescription>
+              Gere um código PIX para pagamento em um banco. Você terá 5 minutos
+              para efetuar o pagamento.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button onClick={handleConfirm} className="cursor-pointer">
+              Gerar código
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
 
-const ShowQrCodeContent = () => {
+const ShowQrCodeContent = ({ handleFinishPurchase }: TabPixProps) => {
   const textCode =
     "00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540589.965802BR5913Nome Completo6009SAO PAULO62070503***6304ABCD";
 
@@ -99,7 +130,12 @@ const ShowQrCodeContent = () => {
           )}
         </Button>
 
-        <Button className="w-full ">Ja paguei</Button>
+        <Button
+          className="w-full"
+          onClick={() => handleFinishPurchase(PAYMENT_METHOD_ENUM.PIX)}
+        >
+          Ja paguei
+        </Button>
       </div>
     </div>
   );

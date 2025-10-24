@@ -1,10 +1,24 @@
+import { PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { FileText } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 
-const TabBoleto = () => {
+interface TabBoletoProps {
+  handleFinishPurchase: (paymentMethod: PAYMENT_METHOD_ENUM) => void;
+}
+
+const TabBoleto = ({ handleFinishPurchase }: TabBoletoProps) => {
   const [showBoletoInfo, setShowBoletoInfo] = useState(false);
 
   const handleGerarBoleto = () => {
@@ -13,7 +27,7 @@ const TabBoleto = () => {
   return (
     <div className="flex md:justify-center">
       {showBoletoInfo ? (
-        <ShowBoletoInfo />
+        <ShowBoletoInfo handleFinishPurchase={handleFinishPurchase} />
       ) : (
         <div>
           <div className="bg-muted/50 border border-border rounded-lg p-6 space-y-4">
@@ -32,16 +46,31 @@ const TabBoleto = () => {
               </div>
             </div>
           </div>
-          <Button className="w-full mt-6" onClick={handleGerarBoleto}>
-            Finalizar compra
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="w-full mt-6">Gerar boleto</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Gerar boleto</DialogTitle>
+              </DialogHeader>
+              <DialogDescription>
+                Gerar boleto para pagamento.
+              </DialogDescription>
+              <DialogFooter>
+                <Button onClick={handleGerarBoleto} className="cursor-pointer">
+                  Confirmar
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       )}
     </div>
   );
 };
 
-const ShowBoletoInfo = () => {
+const ShowBoletoInfo = ({ handleFinishPurchase }: TabBoletoProps) => {
   return (
     <div>
       <p className="text-lg text-center mb-4">Boleto gerado com sucesso</p>
@@ -68,7 +97,11 @@ const ShowBoletoInfo = () => {
         </div>
 
         <div className="flex justify-center">
-          <Button>Ja paguei</Button>
+          <Button
+            onClick={() => handleFinishPurchase(PAYMENT_METHOD_ENUM.BOLETO)}
+          >
+            Ja paguei
+          </Button>
         </div>
       </Card>
     </div>

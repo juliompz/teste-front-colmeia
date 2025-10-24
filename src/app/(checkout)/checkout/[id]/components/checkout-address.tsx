@@ -1,5 +1,4 @@
 "use client";
-import { IAddress } from "@/@types/IAddress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroupItem } from "@/components/ui/radio-group";
@@ -14,6 +13,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 import { useUpdateCheckoutAddress } from "@/hooks/checkout/use-update-address-checkout";
 import { useGetCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
+import { formatAddress } from "@/utils/format-address";
 
 interface CheckoutAddressProps {
   checkoutId: string;
@@ -35,10 +35,6 @@ const CheckoutAddress = ({ checkoutId }: CheckoutAddressProps) => {
   useEffect(() => {
     setSelectedAddress(checkout?.deliveryAddress?.id ?? "");
   }, [checkout]);
-
-  const formatAddress = (address: IAddress) => {
-    return `${address.address}, ${address.neighborhood}, ${address.city}, ${address.state}`;
-  };
 
   const handleUpdateAddress = async (addressId: string) => {
     setSelectedAddress(addressId);

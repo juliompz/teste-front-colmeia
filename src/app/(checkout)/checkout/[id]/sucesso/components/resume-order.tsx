@@ -1,15 +1,45 @@
 "use client";
+import { IAddress } from "@/@types/IAddress";
+import { PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
+import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useGetCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
+import {
+  PRODUCTS_CHECKOUT_KEY,
+  useGetCheckoutById,
+} from "@/hooks/checkout/use-get-checkout-by-id";
+import { formatAddress } from "@/utils/format-address";
 import { formatMoneyBrl } from "@/utils/format-money-brl";
-import { Link, Package } from "lucide-react";
+import { CreditCard, MapPin, Package } from "lucide-react";
 import React from "react";
+import { LoadingSkeleton } from "./loading-skeleton";
+import Link from "next/link";
+import { CartItem } from "@/components/@shared/header/cart-item";
+import { Separator } from "@/components/ui/separator";
 
 const ResumeOrder = ({ id }: { id: string }) => {
-  const { data: order } = useGetCheckoutById(id);
+  const { data: order, isLoading, isError } = useGetCheckoutById(id);
+
+  const paymentMethodLabel = {
+    [PAYMENT_METHOD_ENUM.PIX]: "Pagamento via PIX",
+    [PAYMENT_METHOD_ENUM.CREDIT_CARD]: "Pagamento via Cartão de Crédito",
+    [PAYMENT_METHOD_ENUM.BOLETO]: "Pagamento via Boleto",
+  };
+
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
+
+  if (isError) {
+    return (
+      <div className="flex flex-col gap-4 p-4 h-[30vh] justify-center">
+        <AlertErrorWithReload refetchQueryKey={PRODUCTS_CHECKOUT_KEY(id)} />
+      </div>
+    );
+  }
+
   return (
-    <Card>
+    <Card className="mx-2">
       <CardContent className="pt-6 pb-6">
         <h2 className="text-xl font-bold mb-6">Resumo do pedido</h2>
 
@@ -20,57 +50,60 @@ const ResumeOrder = ({ id }: { id: string }) => {
             <h3 className="font-semibold">Itens do pedido</h3>
           </div>
           <div className="space-y-4">
-            {order?.items.map((product) => (
-              <div key={product.id} className="flex items-start gap-4">
-                <img
-                  src={product.productVariant.imageUrl || "/placeholder.svg"}
-                  alt={product.productVariant.name}
-                  className="h-20 w-20 rounded-lg object-cover"
-                />
-                <div className="flex-1">
-                  <h4 className="font-medium">
-                    {product.productVariant.productName}
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    {product.productVariant.name}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {product.quantity} itens
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="font-semibold">
-                    {formatMoneyBrl(product.productVariant.priceInCents)}
-                  </p>
-                </div>
-              </div>
+            {order?.items.map((item) => (
+              <CartItem
+                disableActions
+                key={item.id}
+                id={item.id}
+                productVariantId={item.productVariant.id}
+                productName={item.productVariant.productName}
+                productVariantName={item.productVariant.name}
+                productVariantImageUrl={item.productVariant.imageUrl}
+                productVariantPriceInCents={item.productVariant.priceInCents}
+                quantity={item.quantity}
+              />
             ))}
           </div>
-          <div className="mt-4 pt-4 border-t flex justify-between items-center">
-            <span className="font-bold">Total</span>
-            <span className="text-xl font-bold">
-              {formatMoneyBrl(order?.totalPriceInCents ?? 0)}
-            </span>
+          <div className="space-y-3">
+            <Separator className="my-2" />
+            <div className=" flex justify-between items-center">
+              <span className="font-md">Frete</span>
+              <span className="text-xl">GRÁTIS</span>
+            </div>
+            <div className=" flex justify-between items-center">
+              <span className="font-bold">Total</span>
+              <span className="text-xl font-bold">
+                {formatMoneyBrl(order?.totalPriceInCents ?? 0)}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* Forma de Pagamento */}
-        {/* <div className="mb-6 pb-6 border-b">
+        <div className="mb-6 pb-6 border-b">
           <div className="flex items-center gap-2 mb-3">
             <CreditCard className="h-5 w-5" />
             <h3 className="font-semibold">Forma de pagamento</h3>
           </div>
-          <p className="text-muted-foreground">{pedido.pagamento}</p>
-        </div> */}
+          <p className="text-muted-foreground">
+            {
+              paymentMethodLabel[
+                order?.paymentMethod ?? PAYMENT_METHOD_ENUM.PIX
+              ]
+            }
+          </p>
+        </div>
 
         {/* Endereço de Entrega */}
-        {/* <div className="mb-6">
+        <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
             <MapPin className="h-5 w-5" />
             <h3 className="font-semibold">Endereço de entrega</h3>
           </div>
-          <p className="text-muted-foreground">{pedido.endereco}</p>
-        </div> */}
+          <p className="text-muted-foreground">
+            {formatAddress(order?.deliveryAddress ?? ({} as IAddress))}
+          </p>
+        </div>
 
         {/* Botão de Ação */}
         <div className="flex gap-3">

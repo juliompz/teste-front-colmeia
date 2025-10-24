@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, CreditCard, Link, MapPin, Package } from "lucide-react";
 import React from "react";
+import { ResumeOrder } from "./components/resume-order";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -54,6 +55,7 @@ const Page = async ({ params }: PageProps) => {
             <span className="font-semibold text-foreground">#{id}</span>
           </p>
         </CardContent>
+        <ResumeOrder id={id} />
       </Card>
     </PageContainer>
   );

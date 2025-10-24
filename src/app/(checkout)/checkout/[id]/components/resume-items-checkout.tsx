@@ -18,17 +18,14 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 import { useGetCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
+import { ICheckout } from "@/@types/ICheckout";
 
 interface ResumeItemsCheckoutProps {
   checkoutId: string;
 }
 
 const ResumeItemsCheckout = ({ checkoutId }: ResumeItemsCheckoutProps) => {
-  const {
-    data: productsCheckout,
-    isLoading,
-    isError,
-  } = useGetCheckoutById(checkoutId);
+  const { data: checkout, isLoading, isError } = useGetCheckoutById(checkoutId);
 
   if (isError) {
     return (
@@ -52,7 +49,7 @@ const ResumeItemsCheckout = ({ checkoutId }: ResumeItemsCheckoutProps) => {
                 ))}
               </div>
             )}
-            {productsCheckout?.items.map((item) => (
+            {checkout?.items.map((item) => (
               <CartItem
                 disableActions
                 key={item.id}
@@ -68,12 +65,19 @@ const ResumeItemsCheckout = ({ checkoutId }: ResumeItemsCheckoutProps) => {
           </div>
         </ScrollArea>
 
-        <div className="flex items-center justify-between my-6">
-          <p className="text-md font-bold">Total</p>
-          <p className="text-md font-bold">
-            {formatMoneyBrl(productsCheckout?.totalPriceInCents ?? 0)}
-          </p>
+        <div className="mt-12 space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="text-md ">Frete</p>
+            <p className="text-md ">GRÁTIS!</p>
+          </div>
+          <div className="flex items-center justify-between ">
+            <p className="text-md font-bold">Total</p>
+            <p className="text-md font-bold">
+              {formatMoneyBrl(checkout?.totalPriceInCents ?? 0)}
+            </p>
+          </div>
         </div>
+
         <Separator className="my-2" />
 
         <div className="space-y-3">
@@ -81,7 +85,7 @@ const ResumeItemsCheckout = ({ checkoutId }: ResumeItemsCheckoutProps) => {
             <p className="text-md font-bold">Forma de pagamento</p>
             <p className="text-sm font-normal">Como você deseja pagar?</p>
           </div>
-          <TabsPaymentMethods />
+          <TabsPaymentMethods checkout={checkout ?? ({} as ICheckout)} />
         </div>
       </CardContent>
     </Card>

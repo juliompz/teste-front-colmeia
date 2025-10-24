@@ -1,11 +1,33 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CreditCardIcon, FileText, QrCode } from "lucide-react";
+import { AlertTriangle, CreditCardIcon, FileText, QrCode } from "lucide-react";
 import React from "react";
 import { TabCreditCard } from "./tab-credit-card";
 import { TabPix } from "./tab-pix";
 import { TabBoleto } from "./tab-boleto";
+import { useRouter } from "next/navigation";
+import { useUpdatePaymentMethodCheckout } from "@/hooks/checkout/use-update-payment-method-checkout";
+import { ICheckout, PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
+import { toast } from "sonner";
 
-const TabsPaymentMethods = () => {
+const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
+  const { push } = useRouter();
+  const { mutateAsync: updatePaymentMethod } = useUpdatePaymentMethodCheckout();
+
+  const handleFinishPurchase = async (paymentMethod: PAYMENT_METHOD_ENUM) => {
+    if (checkout.deliveryAddress === null) {
+      toast.error("Selecione um endereço de entrega!", {
+        duration: 3000,
+        icon: <AlertTriangle className="text-red-500" />,
+      });
+      return;
+    }
+    await updatePaymentMethod({
+      checkoutId: checkout.id,
+      paymentMethod,
+    });
+    push(`/checkout/${checkout.id}/sucesso`);
+  };
+
   return (
     <Tabs
       className="flex flex-col md:flex-row gap-4"
@@ -36,15 +58,15 @@ const TabsPaymentMethods = () => {
       </TabsList>
 
       <TabsContent value="credit_card">
-        <TabCreditCard />
+        <TabCreditCard handleFinishPurchase={handleFinishPurchase} />
       </TabsContent>
 
       <TabsContent value="pix">
-        <TabPix />
+        <TabPix handleFinishPurchase={handleFinishPurchase} />
       </TabsContent>
 
       <TabsContent value="boleto">
-        <TabBoleto />
+        <TabBoleto handleFinishPurchase={handleFinishPurchase} />
       </TabsContent>
     </Tabs>
   );
