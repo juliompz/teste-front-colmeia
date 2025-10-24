@@ -1,17 +1,14 @@
 "use client";
 
-import { MinusIcon, PlusIcon, ShoppingCart } from "lucide-react";
+import { Loader2, MinusIcon, PlusIcon } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { AddProductToCartButton } from "../add-product-cart-button";
 import { IProductVariant } from "@/@types/IProduct";
-import { useCheckoutStore } from "@/zustand/checkout-store";
 import { useRouter } from "next/navigation";
 import { useCreateCheckout } from "@/hooks/checkout/use-create-checkout";
 import { CHECKOUT_STATUS_ENUM } from "@/@types/ICheckout";
-
-// import AddToCartButton from "./add-to-cart-button";
 
 interface ProductActionsProps {
   productVariant: IProductVariant;
@@ -20,7 +17,7 @@ interface ProductActionsProps {
 const ProductActions = ({ productVariant }: ProductActionsProps) => {
   const { push } = useRouter();
   const [quantity, setQuantity] = useState(1);
-  const { mutateAsync: createCheckout } = useCreateCheckout();
+  const { mutateAsync: createCheckout, isPending } = useCreateCheckout();
 
   const handleBuyNow = async () => {
     const checkout = await createCheckout({
@@ -65,7 +62,9 @@ const ProductActions = ({ productVariant }: ProductActionsProps) => {
           className="rounded-full cursor-pointer"
           size="lg"
           onClick={handleBuyNow}
+          disabled={isPending}
         >
+          {isPending && <Loader2 className="animate-spin h-4 w-4 mr-2" />}
           Comprar agora
         </Button>
       </div>

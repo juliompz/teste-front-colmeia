@@ -1,7 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { CHECKOUT_STATUS_ENUM, ICheckout } from "@/@types/ICheckout";
+import {
+  CHECKOUT_STATUS_ENUM,
+  ICheckout,
+  PAYMENT_METHOD_ENUM,
+} from "@/@types/ICheckout";
 import { ICartItem } from "@/@types/ICart";
+import { IAddress } from "@/@types/IAddress";
 
 interface CheckoutState {
   checkouts: ICheckout[];
@@ -9,6 +14,12 @@ interface CheckoutState {
     items: ICartItem[],
     status?: CHECKOUT_STATUS_ENUM
   ) => ICheckout;
+
+  updateCheckoutAddress: (checkoutId: string, address: IAddress) => void;
+  updateCheckoutPaymentMethod: (
+    checkoutId: string,
+    paymentMethod: PAYMENT_METHOD_ENUM
+  ) => void;
   updateCheckoutStatus: (id: string, status: CHECKOUT_STATUS_ENUM) => void;
   getCheckoutById: (id: string) => ICheckout | undefined;
   clearCheckouts: () => void;
@@ -19,15 +30,17 @@ export const useCheckoutStore = create<CheckoutState>()(
   persist(
     (set, get) => ({
       checkouts: [],
-
       createCheckout: (items, status = CHECKOUT_STATUS_ENUM.PENDENTE) => {
         const totalPriceInCents = get().calculateTotal(items);
+        const code = Math.floor(100000 + Math.random() * 900000).toString();
 
         const newCheckout: ICheckout = {
-          id: crypto.randomUUID(),
+          id: code,
           items,
           totalPriceInCents,
           status,
+          paymentMethod: null,
+          deliveryAddress: null,
         };
 
         // Funcao para ordenar as listas e compara item a item
@@ -67,7 +80,25 @@ export const useCheckoutStore = create<CheckoutState>()(
 
         return newCheckout;
       },
+      updateCheckoutAddress: (checkoutId, address) => {
+        set((state) => ({
+          checkouts: state.checkouts.map((checkout) =>
+            checkout.id === checkoutId
+              ? { ...checkout, deliveryAddress: address }
+              : checkout
+          ),
+        }));
+      },
 
+      updateCheckoutPaymentMethod: (checkoutId, paymentMethod) => {
+        set((state) => ({
+          checkouts: state.checkouts.map((checkout) =>
+            checkout.id === checkoutId
+              ? { ...checkout, paymentMethod }
+              : checkout
+          ),
+        }));
+      },
       updateCheckoutStatus: (id, status) => {
         set((state) => ({
           checkouts: state.checkouts.map((checkout) =>
@@ -75,15 +106,12 @@ export const useCheckoutStore = create<CheckoutState>()(
           ),
         }));
       },
-
       getCheckoutById: (id) => {
         const checkout = get().checkouts.find((c) => c.id === id);
         if (!checkout) throw new Error("Checkout não encontrado");
         return checkout;
       },
-
       clearCheckouts: () => set({ checkouts: [] }),
-
       calculateTotal: (items) =>
         items.reduce(
           (acc, item) => acc + item.productVariant.priceInCents * item.quantity,

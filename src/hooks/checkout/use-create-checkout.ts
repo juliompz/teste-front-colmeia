@@ -7,7 +7,7 @@ import { toast } from "sonner";
 const useCreateCheckout = () => {
   const queryClient = useQueryClient();
   const { createCheckout } = useCheckoutStore();
-  const { mutateAsync } = useMutation({
+  return useMutation({
     mutationFn: async ({
       items,
       status,
@@ -15,6 +15,7 @@ const useCreateCheckout = () => {
       items: ICartItem[];
       status: CHECKOUT_STATUS_ENUM;
     }): Promise<ICheckout> => {
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // simula latência
       return createCheckout(items, status);
     },
     onError: (err) => {
@@ -24,7 +25,6 @@ const useCreateCheckout = () => {
       queryClient.invalidateQueries({ queryKey: [] });
     },
   });
-  return { mutateAsync };
 };
 
 export { useCreateCheckout };

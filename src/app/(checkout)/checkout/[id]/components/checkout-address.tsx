@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroupItem } from "@/components/ui/radio-group";
 import { RadioGroup } from "@radix-ui/react-radio-group";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AddNewAddressForm } from "./add-new-address-form";
 import { TrashIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,14 +12,47 @@ import { useDeleteAddress } from "@/hooks/address/use-delete-address";
 import { ADDRESS_KEY, useGetAddress } from "@/hooks/address/use-get-address";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
+import { useUpdateCheckoutAddress } from "@/hooks/checkout/use-update-address-checkout";
+import { useGetCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
 
-const CheckoutAddress = () => {
+interface CheckoutAddressProps {
+  checkoutId: string;
+}
+
+const CheckoutAddress = ({ checkoutId }: CheckoutAddressProps) => {
+  // Enderecos do usuario
   const { data: addresses, isLoading, isError } = useGetAddress();
   const { mutateAsync: removeAddress } = useDeleteAddress();
-  const [selectedAddress, setSelectedAddress] = useState<string>("");
+
+  // Endereço do checkout
+  const { data: checkout } = useGetCheckoutById(checkoutId);
+
+  const { mutateAsync: updateCheckoutAddress } = useUpdateCheckoutAddress();
+  const [selectedAddress, setSelectedAddress] = useState<string>(
+    checkout?.deliveryAddress?.id ?? ""
+  );
+
+  useEffect(() => {
+    setSelectedAddress(checkout?.deliveryAddress?.id ?? "");
+  }, [checkout]);
 
   const formatAddress = (address: IAddress) => {
     return `${address.address}, ${address.neighborhood}, ${address.city}, ${address.state}`;
+  };
+
+  const handleUpdateAddress = async (addressId: string) => {
+    setSelectedAddress(addressId);
+    if (addressId === checkout?.deliveryAddress?.id) return;
+    if (addressId === "add_new") {
+      setSelectedAddress(addressId);
+      return;
+    }
+    const findAddress = addresses?.find((address) => address.id === addressId);
+    if (!findAddress) return;
+    await updateCheckoutAddress({
+      checkoutId,
+      address: findAddress,
+    });
   };
 
   if (isLoading) return <LoadingAddresses />;
@@ -30,7 +63,7 @@ const CheckoutAddress = () => {
     <Card className="p-4">
       <RadioGroup
         value={selectedAddress}
-        onValueChange={setSelectedAddress}
+        onValueChange={handleUpdateAddress}
         className="space-y-2"
       >
         {addresses?.map((address) => (

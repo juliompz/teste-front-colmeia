@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, ShoppingCartIcon } from "lucide-react";
+import { Loader2, LogOut, ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -96,7 +96,7 @@ const UserSection = ({
 const CartContentItems = () => {
   const { push } = useRouter();
   const { data: productsCart, isLoading, isError } = useGetProductsCart();
-  const { mutateAsync: createCheckout } = useCreateCheckout();
+  const { mutateAsync: createCheckout, isPending } = useCreateCheckout();
 
   const emptyCart =
     !productsCart?.products || productsCart?.products.length === 0;
@@ -177,10 +177,11 @@ const CartContentItems = () => {
           </div>
 
           <Button
-            className="mt-5 rounded-full"
+            className="mt-5 rounded-full cursor-pointer"
             onClick={handleCheckout}
-            disabled={emptyCart}
+            disabled={isPending}
           >
+            {isPending && <Loader2 className="animate-spin h-4 w-4 mr-2" />}
             Finalizar compra
           </Button>
         </div>

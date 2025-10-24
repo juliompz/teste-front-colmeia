@@ -7,7 +7,7 @@ export const PRODUCTS_CHECKOUT_KEY = (checkoutId: string) => [
   checkoutId,
 ];
 
-const useGetProductCheckoutById = (checkoutId: string) => {
+const useGetCheckoutById = (checkoutId: string) => {
   const { getCheckoutById } = useCheckoutStore();
   return useQuery({
     queryKey: PRODUCTS_CHECKOUT_KEY(checkoutId),
@@ -18,4 +18,4 @@ const useGetProductCheckoutById = (checkoutId: string) => {
   });
 };
 
-export { useGetProductCheckoutById };
+export { useGetCheckoutById };

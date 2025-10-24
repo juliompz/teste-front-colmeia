@@ -5,21 +5,21 @@ import { ResumeItemsCheckout } from "./components/resume-items-checkout";
 import { CheckoutAddress } from "./components/checkout-address";
 
 interface CheckoutPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-const Page = ({ params }: CheckoutPageProps) => {
-  const checkoutId = params.id;
+const Page = async ({ params }: CheckoutPageProps) => {
+  const { id } = await params;
   return (
     <PageContainer>
       <div className="flex flex-col gap-4 md:flex-row-reverse">
         <div className="md:w-[30%]">
-          <CheckoutAddress />
+          <CheckoutAddress checkoutId={id} />
         </div>
         <div className="md:w-[70%]">
-          <ResumeItemsCheckout checkoutId={checkoutId} />
+          <ResumeItemsCheckout checkoutId={id} />
         </div>
       </div>
     </PageContainer>

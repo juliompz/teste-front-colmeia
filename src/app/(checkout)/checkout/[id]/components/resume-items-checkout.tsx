@@ -17,7 +17,7 @@ import {
 } from "@/hooks/cart/use-get-product-cart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
-import { useGetProductCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
+import { useGetCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
 
 interface ResumeItemsCheckoutProps {
   checkoutId: string;
@@ -28,7 +28,7 @@ const ResumeItemsCheckout = ({ checkoutId }: ResumeItemsCheckoutProps) => {
     data: productsCheckout,
     isLoading,
     isError,
-  } = useGetProductCheckoutById(checkoutId);
+  } = useGetCheckoutById(checkoutId);
 
   if (isError) {
     return (
