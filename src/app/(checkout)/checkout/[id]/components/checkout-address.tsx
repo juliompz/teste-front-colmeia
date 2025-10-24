@@ -1,5 +1,6 @@
 "use client";
-import { Card, CardContent } from "@/components/ui/card";
+import { IAddress } from "@/@types/IAddress";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroupItem } from "@/components/ui/radio-group";
 import { RadioGroup } from "@radix-ui/react-radio-group";
@@ -12,33 +13,33 @@ import { ADDRESS_KEY, useGetAddress } from "@/hooks/address/use-get-address";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 import { useUpdateCheckoutAddress } from "@/hooks/checkout/use-update-address-checkout";
-import { useGetCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
 import { formatAddress } from "@/utils/format-address";
 
 interface CheckoutAddressProps {
   checkoutId: string;
+  checkoutDeliveryAddress: IAddress | null;
 }
 
-const CheckoutAddress = ({ checkoutId }: CheckoutAddressProps) => {
+const CheckoutAddress = ({
+  checkoutId,
+  checkoutDeliveryAddress,
+}: CheckoutAddressProps) => {
   // Enderecos do usuario
   const { data: addresses, isLoading, isError } = useGetAddress();
   const { mutateAsync: removeAddress } = useDeleteAddress();
 
-  // Endereço do checkout
-  const { data: checkout } = useGetCheckoutById(checkoutId);
-
   const { mutateAsync: updateCheckoutAddress } = useUpdateCheckoutAddress();
   const [selectedAddress, setSelectedAddress] = useState<string>(
-    checkout?.deliveryAddress?.id ?? ""
+    checkoutDeliveryAddress?.id ?? ""
   );
 
   useEffect(() => {
-    setSelectedAddress(checkout?.deliveryAddress?.id ?? "");
-  }, [checkout]);
+    setSelectedAddress(checkoutDeliveryAddress?.id ?? "");
+  }, [checkoutDeliveryAddress]);
 
   const handleUpdateAddress = async (addressId: string) => {
     setSelectedAddress(addressId);
-    if (addressId === checkout?.deliveryAddress?.id) return;
+    if (addressId === checkoutDeliveryAddress?.id) return;
     if (addressId === "add_new") {
       setSelectedAddress(addressId);
       return;
@@ -57,6 +58,7 @@ const CheckoutAddress = ({ checkoutId }: CheckoutAddressProps) => {
 
   return (
     <Card className="p-4">
+      <CardTitle>Endereço para entrega</CardTitle>
       <RadioGroup
         value={selectedAddress}
         onValueChange={handleUpdateAddress}

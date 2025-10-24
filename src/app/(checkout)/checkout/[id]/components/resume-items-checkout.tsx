@@ -11,23 +11,24 @@ import { formatMoneyBrl } from "@/utils/format-money-brl";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import React from "react";
 import { TabsPaymentMethods } from "./tabs-payment-methods";
-import {
-  PRODUCTS_CART_KEY,
-  useGetProductsCart,
-} from "@/hooks/cart/use-get-product-cart";
+import { PRODUCTS_CART_KEY } from "@/hooks/cart/use-get-product-cart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 import { useGetCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
 import { ICheckout } from "@/@types/ICheckout";
 
 interface ResumeItemsCheckoutProps {
-  checkoutId: string;
+  checkoutData: ICheckout | null;
+  isErrorCheckout: boolean;
+  isLoadingCheckout: boolean;
 }
 
-const ResumeItemsCheckout = ({ checkoutId }: ResumeItemsCheckoutProps) => {
-  const { data: checkout, isLoading, isError } = useGetCheckoutById(checkoutId);
-
-  if (isError) {
+const ResumeItemsCheckout = ({
+  checkoutData,
+  isErrorCheckout,
+  isLoadingCheckout,
+}: ResumeItemsCheckoutProps) => {
+  if (isErrorCheckout) {
     return (
       <Card className="flex flex-col gap-4 p-4 h-[30vh] justify-center">
         <AlertErrorWithReload refetchQueryKey={PRODUCTS_CART_KEY} />
@@ -42,14 +43,14 @@ const ResumeItemsCheckout = ({ checkoutId }: ResumeItemsCheckoutProps) => {
         <ScrollArea className="h-full">
           <p className=" text-sm font-medium mb-1">Itens do carrinho</p>
           <div className="flex h-full flex-col gap-8">
-            {isLoading && (
+            {isLoadingCheckout && (
               <div className="flex h-full flex-col gap-8">
                 {[...Array(3)].map((_, i) => (
                   <Skeleton key={i} className=" h-16 w-full rounded-lg " />
                 ))}
               </div>
             )}
-            {checkout?.items.map((item) => (
+            {checkoutData?.items.map((item) => (
               <CartItem
                 disableActions
                 key={item.id}
@@ -73,7 +74,7 @@ const ResumeItemsCheckout = ({ checkoutId }: ResumeItemsCheckoutProps) => {
           <div className="flex items-center justify-between ">
             <p className="text-md font-bold">Total</p>
             <p className="text-md font-bold">
-              {formatMoneyBrl(checkout?.totalPriceInCents ?? 0)}
+              {formatMoneyBrl(checkoutData?.totalPriceInCents ?? 0)}
             </p>
           </div>
         </div>
@@ -85,7 +86,7 @@ const ResumeItemsCheckout = ({ checkoutId }: ResumeItemsCheckoutProps) => {
             <p className="text-md font-bold">Forma de pagamento</p>
             <p className="text-sm font-normal">Como você deseja pagar?</p>
           </div>
-          <TabsPaymentMethods checkout={checkout ?? ({} as ICheckout)} />
+          <TabsPaymentMethods checkout={checkoutData ?? ({} as ICheckout)} />
         </div>
       </CardContent>
     </Card>

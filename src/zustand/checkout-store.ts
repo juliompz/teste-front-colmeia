@@ -22,7 +22,7 @@ interface CheckoutState {
   ) => void;
   updateCheckoutStatus: (id: string, status: CHECKOUT_STATUS_ENUM) => void;
   getCheckoutById: (id: string) => ICheckout | undefined;
-  clearCheckouts: () => void;
+  finishCheckout: (id: string) => void;
   calculateTotal: (items: ICartItem[]) => number;
 }
 
@@ -89,7 +89,6 @@ export const useCheckoutStore = create<CheckoutState>()(
           ),
         }));
       },
-
       updateCheckoutPaymentMethod: (checkoutId, paymentMethod) => {
         set((state) => ({
           checkouts: state.checkouts.map((checkout) =>
@@ -111,7 +110,18 @@ export const useCheckoutStore = create<CheckoutState>()(
         if (!checkout) throw new Error("Checkout não encontrado");
         return checkout;
       },
-      clearCheckouts: () => set({ checkouts: [] }),
+      finishCheckout: async (id) => {
+        const checkout = get().getCheckoutById(id);
+        if (!checkout) throw new Error("Checkout não encontrado");
+        if (checkout.status !== CHECKOUT_STATUS_ENUM.PENDENTE) {
+          throw new Error("Checkout já concluído");
+        }
+        set((state) => ({
+          checkouts: state.checkouts.map((c) =>
+            c.id === id ? { ...c, status: CHECKOUT_STATUS_ENUM.CONCLUIDO } : c
+          ),
+        }));
+      },
       calculateTotal: (items) =>
         items.reduce(
           (acc, item) => acc + item.productVariant.priceInCents * item.quantity,

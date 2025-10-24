@@ -1,6 +1,6 @@
 "use client";
 import { IAddress } from "@/@types/IAddress";
-import { PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
+import { ICheckout, PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
 import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,26 +17,12 @@ import Link from "next/link";
 import { CartItem } from "@/components/@shared/header/cart-item";
 import { Separator } from "@/components/ui/separator";
 
-const ResumeOrder = ({ id }: { id: string }) => {
-  const { data: order, isLoading, isError } = useGetCheckoutById(id);
-
+const ResumeOrder = ({ order }: { order: ICheckout }) => {
   const paymentMethodLabel = {
     [PAYMENT_METHOD_ENUM.PIX]: "Pagamento via PIX",
     [PAYMENT_METHOD_ENUM.CREDIT_CARD]: "Pagamento via Cartão de Crédito",
     [PAYMENT_METHOD_ENUM.BOLETO]: "Pagamento via Boleto",
   };
-
-  if (isLoading) {
-    return <LoadingSkeleton />;
-  }
-
-  if (isError) {
-    return (
-      <div className="flex flex-col gap-4 p-4 h-[30vh] justify-center">
-        <AlertErrorWithReload refetchQueryKey={PRODUCTS_CHECKOUT_KEY(id)} />
-      </div>
-    );
-  }
 
   return (
     <Card className="mx-2">

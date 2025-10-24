@@ -8,13 +8,14 @@ import { useRouter } from "next/navigation";
 import { useUpdatePaymentMethodCheckout } from "@/hooks/checkout/use-update-payment-method-checkout";
 import { ICheckout, PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
 import { toast } from "sonner";
+import { useFinishCheckout } from "@/hooks/checkout/use-finish-checkout";
 
 const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
-  const { push } = useRouter();
   const { mutateAsync: updatePaymentMethod } = useUpdatePaymentMethodCheckout();
-
+  const { mutateAsync: finishCheckout } = useFinishCheckout();
+  const emptyAddress = checkout.deliveryAddress === null;
   const handleFinishPurchase = async (paymentMethod: PAYMENT_METHOD_ENUM) => {
-    if (checkout.deliveryAddress === null) {
+    if (emptyAddress) {
       toast.error("Selecione um endereço de entrega!", {
         duration: 3000,
         icon: <AlertTriangle className="text-red-500" />,
@@ -25,8 +26,17 @@ const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
       checkoutId: checkout.id,
       paymentMethod,
     });
-    push(`/checkout/${checkout.id}/sucesso`);
+    await finishCheckout(checkout.id);
   };
+
+  if (emptyAddress)
+    return (
+      <div className="flex justify-center items-center">
+        <p className="text-muted-foreground text-sm">
+          Selecione um endereço de entrega para finalizar o pedido
+        </p>
+      </div>
+    );
 
   return (
     <Tabs
@@ -35,6 +45,7 @@ const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
     >
       <TabsList className="h-full flex flex-row md:flex-col p-0">
         <TabsTrigger
+          disabled={emptyAddress}
           value="credit_card"
           className="flex w-full items-center justify-start gap-1.5 px-2.5 sm:px-3"
         >
@@ -42,6 +53,7 @@ const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
           Cartão de Crédito
         </TabsTrigger>
         <TabsTrigger
+          disabled={emptyAddress}
           value="pix"
           className="flex w-full items-center justify-start gap-1.5 px-2.5 sm:px-3"
         >
@@ -49,6 +61,7 @@ const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
           PIX
         </TabsTrigger>
         <TabsTrigger
+          disabled={emptyAddress}
           value="boleto"
           className="flex w-full items-center justify-start gap-1.5 px-2.5 sm:px-3"
         >
