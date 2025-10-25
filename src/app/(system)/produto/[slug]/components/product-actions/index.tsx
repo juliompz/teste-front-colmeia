@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, MinusIcon, PlusIcon } from "lucide-react";
+import { Loader2, MinusIcon, PlusIcon, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -9,17 +9,42 @@ import { IProductVariant } from "@/@types/IProduct";
 import { useRouter } from "next/navigation";
 import { useCreateCheckout } from "@/hooks/checkout/use-create-checkout";
 import { CHECKOUT_STATUS_ENUM } from "@/@types/ICheckout";
+import { useAuthStore } from "@/zustand/auth-store";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import Link from "next/link";
+import { useAddProductToCart } from "@/hooks/cart/use-add-product-cart";
 
 interface ProductActionsProps {
   productVariant: IProductVariant;
 }
 
 const ProductActions = ({ productVariant }: ProductActionsProps) => {
+  const { user } = useAuthStore();
+
   const { push } = useRouter();
   const [quantity, setQuantity] = useState(1);
+  const [showUserNotAuthenticatedModal, setShowUserNotAuthenticatedModal] =
+    useState(false);
   const { mutateAsync: createCheckout, isPending } = useCreateCheckout();
+  const { mutateAsync: addProductToCart } = useAddProductToCart();
 
+  const handleAddToCart = async () => {
+    if (!user) {
+      setShowUserNotAuthenticatedModal(true);
+      return;
+    }
+    await addProductToCart({ product: productVariant, quantity: quantity });
+  };
   const handleBuyNow = async () => {
+    if (!user) {
+      setShowUserNotAuthenticatedModal(true);
+      return;
+    }
     const checkout = await createCheckout({
       items: [
         { id: Math.ceil(Math.random() * 10), productVariant, quantity: 1 },
@@ -54,10 +79,16 @@ const ProductActions = ({ productVariant }: ProductActionsProps) => {
         </div>
       </div>
       <div className="flex flex-col space-y-4">
-        <AddProductToCartButton
-          productVariant={productVariant}
-          quantity={quantity}
-        />
+        <Button
+          className="w-full cursor-pointer"
+          variant={"outline"}
+          size="lg"
+          onClick={handleAddToCart}
+          disabled={isPending}
+        >
+          <ShoppingCart className="mr-2 h-5 w-5" />
+          Adicionar ao carrinho
+        </Button>
         <Button
           className="rounded-full cursor-pointer"
           size="lg"
@@ -68,6 +99,22 @@ const ProductActions = ({ productVariant }: ProductActionsProps) => {
           Comprar agora
         </Button>
       </div>
+
+      <Dialog
+        open={showUserNotAuthenticatedModal}
+        onOpenChange={setShowUserNotAuthenticatedModal}
+      >
+        <DialogContent>
+          <p className="text-lg font-medium">Não autenticado</p>
+          <p className="text-muted-foreground text-sm">
+            Para continuar, faça login ou cadastre-se.
+          </p>
+
+          <Button asChild>
+            <Link href="/autenticar">Entrar</Link>
+          </Button>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

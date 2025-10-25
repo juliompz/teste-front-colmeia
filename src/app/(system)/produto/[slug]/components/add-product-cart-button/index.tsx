@@ -25,7 +25,6 @@ const AddProductToCartButton = ({
       onClick={() =>
         addProductToCart({ product: productVariant, quantity: quantity })
       }
-      // disabled={isPending}
     >
       <ShoppingCart className="mr-2 h-5 w-5" />
       Adicionar ao carrinho

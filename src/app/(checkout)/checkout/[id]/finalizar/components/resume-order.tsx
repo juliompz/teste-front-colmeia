@@ -92,7 +92,7 @@ const ResumeOrder = ({ order }: { order: ICheckout }) => {
         </div>
 
         {/* Botão de Ação */}
-        <div className="flex gap-3">
+        <div className="flex flex-col md:flex-row gap-3 ">
           <Button asChild className="flex-1">
             <Link href="/">Continuar comprando</Link>
           </Button>

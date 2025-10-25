@@ -13,21 +13,19 @@ const ThemeToggle = () => {
   const { setTheme, theme } = useTheme();
 
   return (
-    <>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            variant={"ghost"}
-          >
-            {theme === "light" ? <Moon /> : <Sun />}
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Alterar tema</p>
-        </TooltipContent>
-      </Tooltip>
-    </>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          variant={"ghost"}
+        >
+          {theme === "light" ? <Moon /> : <Sun />}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Alterar tema</p>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 
