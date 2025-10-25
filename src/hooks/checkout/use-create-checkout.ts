@@ -11,12 +11,14 @@ const useCreateCheckout = () => {
     mutationFn: async ({
       items,
       status,
+      createdByCart,
     }: {
       items: ICartItem[];
       status: CHECKOUT_STATUS_ENUM;
+      createdByCart?: boolean;
     }): Promise<ICheckout> => {
       await new Promise((resolve) => setTimeout(resolve, 1000)); // simula latência
-      return createCheckout(items, status);
+      return createCheckout(items, status, createdByCart);
     },
     onError: (err) => {
       toast.error(err.message);

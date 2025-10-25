@@ -20,4 +20,5 @@ export interface ICheckout {
   status: CHECKOUT_STATUS_ENUM;
   paymentMethod: PAYMENT_METHOD_ENUM | null;
   deliveryAddress: IAddress | null;
+  createdByCart?: boolean;
 }

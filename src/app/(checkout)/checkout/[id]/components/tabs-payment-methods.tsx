@@ -26,7 +26,10 @@ const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
       checkoutId: checkout.id,
       paymentMethod,
     });
-    await finishCheckout(checkout.id);
+    await finishCheckout({
+      checkoutId: checkout.id,
+      createdByCart: checkout.createdByCart,
+    });
   };
 
   if (emptyAddress)

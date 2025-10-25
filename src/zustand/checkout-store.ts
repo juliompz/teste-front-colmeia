@@ -7,12 +7,14 @@ import {
 } from "@/@types/ICheckout";
 import { ICartItem } from "@/@types/ICart";
 import { IAddress } from "@/@types/IAddress";
+import { useCartStore } from "./cart-store";
 
 interface CheckoutState {
   checkouts: ICheckout[];
   createCheckout: (
     items: ICartItem[],
-    status?: CHECKOUT_STATUS_ENUM
+    status?: CHECKOUT_STATUS_ENUM,
+    createdByCart?: boolean
   ) => ICheckout;
 
   updateCheckoutAddress: (checkoutId: string, address: IAddress) => void;
@@ -30,10 +32,13 @@ export const useCheckoutStore = create<CheckoutState>()(
   persist(
     (set, get) => ({
       checkouts: [],
-      createCheckout: (items, status = CHECKOUT_STATUS_ENUM.PENDENTE) => {
+      createCheckout: (
+        items,
+        status = CHECKOUT_STATUS_ENUM.PENDENTE,
+        createdByCart
+      ) => {
         const totalPriceInCents = get().calculateTotal(items);
         const code = Math.floor(100000 + Math.random() * 900000).toString();
-
         const newCheckout: ICheckout = {
           id: code,
           items,
@@ -41,6 +46,7 @@ export const useCheckoutStore = create<CheckoutState>()(
           status,
           paymentMethod: null,
           deliveryAddress: null,
+          createdByCart: createdByCart,
         };
 
         // Funcao para ordenar as listas e compara item a item

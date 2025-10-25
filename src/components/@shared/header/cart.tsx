@@ -109,6 +109,7 @@ const CartContentItems = () => {
     const checkout = await createCheckout({
       items: productsCart?.products,
       status: CHECKOUT_STATUS_ENUM.PENDENTE,
+      createdByCart: true,
     });
     push(`/checkout/${checkout.id}`);
   };
