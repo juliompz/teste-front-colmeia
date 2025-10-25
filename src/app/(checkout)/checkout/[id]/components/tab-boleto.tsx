@@ -13,21 +13,38 @@ import {
 import { FileText } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
+import { FinishLoading } from "./finish-loading";
 
 interface TabBoletoProps {
   handleFinishPurchase: (paymentMethod: PAYMENT_METHOD_ENUM) => void;
+  isPendingFinish: boolean;
 }
 
-const TabBoleto = ({ handleFinishPurchase }: TabBoletoProps) => {
+const TabBoleto = ({
+  handleFinishPurchase,
+  isPendingFinish,
+}: TabBoletoProps) => {
   const [showBoletoInfo, setShowBoletoInfo] = useState(false);
+  const [loadingBoleto, setLoadingBoleto] = useState(false);
 
-  const handleGerarBoleto = () => {
-    setShowBoletoInfo(true);
+  const handleGerarBoleto = async () => {
+    setLoadingBoleto(true);
+    setTimeout(() => {
+      setShowBoletoInfo(true);
+    }, 3000);
   };
+
+  if (isPendingFinish) {
+    return <FinishLoading text="Validando boleto..." />;
+  }
+
   return (
-    <div className="flex md:justify-center">
+    <div className="flex md:justify-center py-7">
       {showBoletoInfo ? (
-        <ShowBoletoInfo handleFinishPurchase={handleFinishPurchase} />
+        <ShowBoletoInfo
+          handleFinishPurchase={handleFinishPurchase}
+          isPendingFinish
+        />
       ) : (
         <div>
           <div className="bg-muted/50 border border-border rounded-lg p-6 space-y-4">
@@ -48,7 +65,9 @@ const TabBoleto = ({ handleFinishPurchase }: TabBoletoProps) => {
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="w-full mt-6">Gerar boleto</Button>
+              <Button className="w-full mt-6 cursor-pointer">
+                Gerar boleto
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
@@ -57,8 +76,15 @@ const TabBoleto = ({ handleFinishPurchase }: TabBoletoProps) => {
               <DialogDescription>
                 Gerar boleto para pagamento.
               </DialogDescription>
+              {loadingBoleto && (
+                <FinishLoading text="Gerando boleto, aguarde um instante..." />
+              )}
               <DialogFooter>
-                <Button onClick={handleGerarBoleto} className="cursor-pointer">
+                <Button
+                  onClick={handleGerarBoleto}
+                  className="cursor-pointer"
+                  disabled={loadingBoleto}
+                >
                   Confirmar
                 </Button>
               </DialogFooter>

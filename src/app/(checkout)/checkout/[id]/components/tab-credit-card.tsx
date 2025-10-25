@@ -10,14 +10,20 @@ import {
   DialogFooter,
   DialogContent,
 } from "@/components/ui/dialog";
+import { Loader2 } from "lucide-react";
 
 import React, { useState } from "react";
+import { FinishLoading } from "./finish-loading";
 
 interface TabCreditCardProps {
   handleFinishPurchase: (paymentMethod: PAYMENT_METHOD_ENUM) => void;
+  isPendingFinish: boolean;
 }
 
-const TabCreditCard = ({ handleFinishPurchase }: TabCreditCardProps) => {
+const TabCreditCard = ({
+  handleFinishPurchase,
+  isPendingFinish,
+}: TabCreditCardProps) => {
   const [card, setCard] = useState<CreditCardValue>({
     cardholderName: "",
     cardNumber: "",
@@ -26,7 +32,8 @@ const TabCreditCard = ({ handleFinishPurchase }: TabCreditCardProps) => {
     cvv: "",
   });
 
-  const disableButton = Object.values(card).some((value) => value === "");
+  const disableButton =
+    Object.values(card).some((value) => value === "") || isPendingFinish;
 
   return (
     <div className="flex md:justify-center">
@@ -45,6 +52,9 @@ const TabCreditCard = ({ handleFinishPurchase }: TabCreditCardProps) => {
                 Confirme o pagamento para finalizar a compra com seu cartão de
                 crédito.
               </DialogDescription>
+              {isPendingFinish && (
+                <FinishLoading text="Validando cartão de crédito..." />
+              )}
             </DialogHeader>
             <DialogFooter>
               <Button

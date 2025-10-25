@@ -16,6 +16,7 @@ const useFinishCheckout = () => {
       checkoutId: string;
       createdByCart?: boolean;
     }) => {
+      await new Promise((resolve) => setTimeout(resolve, 3000)); // simula latência
       return finishCheckout(checkoutId);
     },
     onError: (err) => {

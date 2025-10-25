@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, LogOut, ShoppingCartIcon } from "lucide-react";
+import { Frown, Loader2, LogOut, ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -132,9 +132,12 @@ const CartContentItems = () => {
       <Separator className="my-2" />
       <div className="flex h-full max-h-full flex-col overflow-hidden">
         {emptyCart ? (
-          <p className="text-center text-sm font-medium">
-            Carrinho vazio, adicione algum produto :)
-          </p>
+          <div className="flex flex-col items-center justify-center">
+            <Frown />
+            <p className="text-center text-sm font-medium">
+              Carrinho vazio, adicione algum produto.
+            </p>
+          </div>
         ) : (
           <ScrollArea className="h-full">
             <div className="flex h-full flex-col gap-8">

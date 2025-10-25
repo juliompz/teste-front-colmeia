@@ -13,12 +13,14 @@ import { Check, Copy } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import Countdown from "react-countdown";
+import { FinishLoading } from "./finish-loading";
 
 interface TabPixProps {
   handleFinishPurchase: (paymentMethod: PAYMENT_METHOD_ENUM) => void;
+  isPendingFinish: boolean;
 }
 
-const TabPix = ({ handleFinishPurchase }: TabPixProps) => {
+const TabPix = ({ handleFinishPurchase, isPendingFinish }: TabPixProps) => {
   const [confirmed, setConfirmed] = useState(false);
 
   const handleConfirm = () => {
@@ -26,9 +28,12 @@ const TabPix = ({ handleFinishPurchase }: TabPixProps) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col py-7">
       {confirmed && (
-        <ShowQrCodeContent handleFinishPurchase={handleFinishPurchase} />
+        <ShowQrCodeContent
+          handleFinishPurchase={handleFinishPurchase}
+          isPendingFinish={isPendingFinish}
+        />
       )}
       {!confirmed && <ShowBlurredQrCode handleConfirm={handleConfirm} />}
     </div>
@@ -52,7 +57,7 @@ const ShowBlurredQrCode = ({
       />
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Gerar codigo PIX</Button>
+          <Button className="cursor-pointer">Gerar codigo PIX</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -73,7 +78,10 @@ const ShowBlurredQrCode = ({
   );
 };
 
-const ShowQrCodeContent = ({ handleFinishPurchase }: TabPixProps) => {
+const ShowQrCodeContent = ({
+  handleFinishPurchase,
+  isPendingFinish,
+}: TabPixProps) => {
   const textCode =
     "00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-7890-abcd-ef1234567890520400005303986540589.965802BR5913Nome Completo6009SAO PAULO62070503***6304ABCD";
 
@@ -103,7 +111,11 @@ const ShowQrCodeContent = ({ handleFinishPurchase }: TabPixProps) => {
         </p>
       </div>
       <div className="bg-white p-4 rounded-lg mb-4">
-        <Image src="/images/qrCode.png" alt="PIX" width={200} height={300} />
+        {isPendingFinish ? (
+          <FinishLoading text="Validando PIX, aguarde um instante..." />
+        ) : (
+          <Image src="/images/qrCode.png" alt="PIX" width={200} height={300} />
+        )}
       </div>
       <p className="text-sm text-muted-foreground text-center mb-4">
         Escaneie o QR Code com o app do seu banco ou copie o código abaixo
@@ -133,6 +145,7 @@ const ShowQrCodeContent = ({ handleFinishPurchase }: TabPixProps) => {
         <Button
           className="w-full"
           onClick={() => handleFinishPurchase(PAYMENT_METHOD_ENUM.PIX)}
+          disabled={isPendingFinish}
         >
           Ja paguei
         </Button>

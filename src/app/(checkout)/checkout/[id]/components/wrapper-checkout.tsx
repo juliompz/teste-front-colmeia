@@ -12,7 +12,7 @@ const WrapperCheckout = ({ checkoutId }: { checkoutId: string }) => {
     return <WrapperResumeOrder id={checkoutId} />;
   }
   return (
-    <div className="flex flex-col gap-4 md:flex-row-reverse">
+    <div className="flex flex-col gap-4 md:flex-row-reverse pb-20">
       <div className="md:w-[30%]">
         <CheckoutAddress
           checkoutId={checkoutId}

@@ -19,10 +19,6 @@ const useUpdatePaymentMethodCheckout = () => {
     onError: (err) => {
       toast.error(err.message);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [] });
-      toast.success("Método de pagamento atualizado com sucesso!");
-    },
   });
 };
 
