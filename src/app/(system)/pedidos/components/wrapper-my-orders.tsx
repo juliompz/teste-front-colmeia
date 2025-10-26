@@ -1,9 +1,13 @@
 "use client";
-import { useGetAllCheckouts } from "@/hooks/checkout/use-get-all-checkouts";
+import {
+  CHECKOUTS_KEY,
+  useGetAllCheckouts,
+} from "@/hooks/checkout/use-get-all-checkouts";
 import React from "react";
 import { OrderItem } from "./order-item";
 import { Package } from "lucide-react";
 import { OrderLoading } from "./order-loading";
+import { ErrorWithImage } from "@/components/@shared/error-with-image";
 
 const WrapperMyOrders = () => {
   const { data: checkouts, isLoading, isError } = useGetAllCheckouts();
@@ -16,7 +20,13 @@ const WrapperMyOrders = () => {
       </div>
     );
   }
-  if (isError) return <div>error</div>;
+  if (isError)
+    return (
+      <ErrorWithImage
+        refetchQueries={CHECKOUTS_KEY}
+        title="Não foi possível carregar os pedidos"
+      />
+    );
   if (checkouts?.length === 0) {
     return (
       <div className="space-y-4">

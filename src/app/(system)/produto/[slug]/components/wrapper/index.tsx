@@ -10,12 +10,10 @@ import {
 import { ProductActions } from "../product-actions";
 import { LikelyProducts } from "../list-likely-products/list-likely-products";
 import { VariantSelector } from "../variant-selector";
-import { Loader2, RefreshCcw } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useQueryClient } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
+import { ErrorWithImage } from "@/components/@shared/error-with-image";
 
 const Wrapper = ({ slug }: { slug: string }) => {
-  const queryClient = useQueryClient();
   const {
     data: productVariant,
     isError,
@@ -32,38 +30,10 @@ const Wrapper = ({ slug }: { slug: string }) => {
 
   if (isError) {
     return (
-      <div className="flex flex-col space-y-6 md:flex-row space-x-6">
-        <div className="w-full md:w-1/2">
-          <Image
-            src="/images/error-image.png"
-            alt="error"
-            sizes="100vw"
-            height={0}
-            width={0}
-            className="h-auto w-full object-cover"
-          />
-        </div>
-        <div className="flex flex-col gap-4 text-center">
-          <p className="font-bold text-2xl">
-            Não foi possível acessar o produto
-          </p>
-          <p className="text-muted-foreground text-sm">
-            Tente novamente mais tarde!
-          </p>
-
-          <Button
-            variant={"outline"}
-            onClick={() =>
-              queryClient.refetchQueries({
-                queryKey: PRODUCT_BY_SLUG_KEY(slug),
-              })
-            }
-          >
-            <RefreshCcw />
-            Recarregar
-          </Button>
-        </div>
-      </div>
+      <ErrorWithImage
+        refetchQueries={PRODUCT_BY_SLUG_KEY(slug)}
+        title="Não foi possível carregar o produto"
+      />
     );
   }
 

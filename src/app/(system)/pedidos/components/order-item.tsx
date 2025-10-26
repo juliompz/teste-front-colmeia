@@ -1,7 +1,13 @@
 import { ICartItem } from "@/@types/ICart";
 import { CHECKOUT_STATUS_ENUM, PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/utils/masks/format-date";
 import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
 import { Calendar, CreditCard, FileText, Package, QrCode } from "lucide-react";
@@ -85,11 +91,10 @@ const OrderItem = ({
         </div>
       </CardHeader>
 
-      {/* Order Items */}
-      <div className="px-4 py-3">
-        <h3 className="mb-2 text-sm font-medium text-muted-foreground">
+      <CardContent>
+        <span className="mb-2 text-sm font-medium text-muted-foreground">
           Itens do pedido
-        </h3>
+        </span>
         <div className="space-y-2">
           {items.map((item) => (
             <div
@@ -106,9 +111,9 @@ const OrderItem = ({
                   />
                 </div>
                 <div className="min-w-0">
-                  <h4 className="text-sm font-medium text-foreground">
+                  <span className="text-sm font-medium text-foreground">
                     {item.productVariant.productName}
-                  </h4>
+                  </span>
                   <p className="text-xs text-muted-foreground">
                     {item.productVariant.name} • {item.quantity}{" "}
                     {item.quantity === 1 ? "item" : "itens"}
@@ -123,15 +128,16 @@ const OrderItem = ({
             </div>
           ))}
         </div>
-
-        {/* Order totalPriceInCents */}
-        <div className="mt-4 flex items-center justify-between border-t pt-3">
+      </CardContent>
+      <Separator className="mx-2" />
+      <CardFooter>
+        <div className="w-full flex items-center justify-between">
           <span className="font-semibold text-foreground">Total</span>
           <span className="text-lg font-bold text-foreground">
             {formatMoneyBrl(totalPriceInCents)}
           </span>
         </div>
-      </div>
+      </CardFooter>
     </Card>
   );
 };
