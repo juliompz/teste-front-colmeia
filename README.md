@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+## 📦 Desenvolvimento
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 🛍️ E-commerce Checkout
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Um fluxo de checkout completo e mockado com experiência de usuário fluida.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Stack
 
-## Learn More
+- **Next.js 15** - App Router & Server Components
+- **Tailwind CSS** - Estilização utilitária
+- **TanStack Query** - Estado e cache
+- **Zod** - Validação de schemas
+- **React Hook Form** - Formulários
 
-To learn more about Next.js, take a look at the following resources:
+## ⚡ Funcionalidades
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🔐 Autenticação
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Tela única login/cadastro
+- Sessão persistida
+- Rotas protegidas
 
-## Deploy on Vercel
+### 📦 Catálogo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Listagem de produtos
+- Visualização individual
+- Variantes de produtos
+- Gestão de estoque
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 🛒 Carrinho
+
+- Adição/remoção de itens
+- Controle de quantidades
+- Resumo do pedido
+- Persistência local
+
+### 💳 Checkout
+
+- **Pix** - QR Code mockado
+- **Cartão** - Formulário validado
+- **Boleto** - Emissão simulada
+- Fluxo de status completo
+
+### 📋 Meus Pedidos
+
+- Histórico de compras
+- Status dos pedidos
+- Detalhes por pedido
+
+### 🎯 UX
+
+- Estados de loading
+- Tratamento de erros
+- Responsividade mobile
+- Acessibilidade
