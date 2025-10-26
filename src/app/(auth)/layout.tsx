@@ -1,6 +1,5 @@
 import { Footer } from "@/components/@shared/footer";
 import React from "react";
-import { ProtectedRoute } from "./components/protected-route";
 
 export default function RootLayout({
   children,
@@ -10,7 +9,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ProtectedRoute>{children}</ProtectedRoute>
+        {children}
         <Footer />
       </body>
     </html>

@@ -1,5 +1,7 @@
 // stores/auth-store.ts
 import { IUser } from "@/@types/IUser";
+import { logout } from "@/actions/logout";
+import { setUserSession } from "@/actions/set-user-session";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -27,6 +29,7 @@ export const useAuthStore = create<AuthState>()(
           throw new Error("Usuário ou senha inválidos");
         }
         set({ user: foundUser });
+        setUserSession(foundUser);
       },
 
       register: async (name, email, password) => {
@@ -41,7 +44,10 @@ export const useAuthStore = create<AuthState>()(
           ],
         });
       },
-      logout: () => set({ user: null }),
+      logout: () => {
+        set({ user: null });
+        logout();
+      },
     }),
     {
       name: "auth-storage",
