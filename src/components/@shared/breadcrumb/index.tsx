@@ -2,12 +2,10 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
   Breadcrumb as ShadcnBreadcrumb,
 } from "@/components/ui/breadcrumb";
 import { SlashIcon } from "lucide-react";
-import React from "react";
 
 interface BreadcrumbItemProps {
   href: string;

@@ -1,10 +1,9 @@
 import { PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
 import { useCheckoutStore } from "@/zustand/checkout-store";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 const useUpdatePaymentMethodCheckout = () => {
-  const queryClient = useQueryClient();
   const { updateCheckoutPaymentMethod } = useCheckoutStore();
   return useMutation({
     mutationFn: async ({

@@ -1,16 +1,14 @@
 "use client";
 import { IAddress } from "@/@types/IAddress";
 import { ICheckout, PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
+import { CartItem } from "@/components/@shared/header/cart-item";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { formatAddress } from "@/utils/masks/format-address";
 import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
 import { CreditCard, MapPin, Package } from "lucide-react";
-import React from "react";
-import { LoadingSkeleton } from "./loading-skeleton";
 import Link from "next/link";
-import { CartItem } from "@/components/@shared/header/cart-item";
-import { Separator } from "@/components/ui/separator";
 
 const ResumeOrder = ({ order }: { order: ICheckout }) => {
   const paymentMethodLabel = {
@@ -35,7 +33,6 @@ const ResumeOrder = ({ order }: { order: ICheckout }) => {
               <CartItem
                 disableActions
                 key={item.id}
-                id={item.id}
                 productVariantId={item.productVariant.id}
                 productName={item.productVariant.productName}
                 productVariantName={item.productVariant.name}

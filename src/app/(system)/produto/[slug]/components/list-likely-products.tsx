@@ -3,8 +3,6 @@ import {
   PRODUCT_LIKELY_PRODUCTS_KEY,
   useGetLikelyProducts,
 } from "@/hooks/products/use-get-likely-products";
-import { mockProducts } from "@/utils/mock-data";
-import React from "react";
 
 interface LikelyProductsProps {
   categoryId: number;

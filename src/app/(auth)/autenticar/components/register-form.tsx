@@ -18,13 +18,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useCreateUser } from "@/hooks/auth/use-create-user";
-import { formatCPF } from "@/utils/masks/format-cpf";
-import { formatPhone } from "@/utils/masks/format-phone";
-// import { useCreateUser } from "@/hooks/auth/user/useCreate/useCreateUser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

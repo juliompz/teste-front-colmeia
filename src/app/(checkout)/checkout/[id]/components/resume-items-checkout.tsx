@@ -1,25 +1,17 @@
 "use client";
+import { CHECKOUT_STATUS_ENUM, ICheckout } from "@/@types/ICheckout";
+import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 import { CartItem } from "@/components/@shared/header/cart-item";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { PRODUCTS_CART_KEY } from "@/hooks/cart/use-get-product-cart";
+import { useFinishCheckout } from "@/hooks/checkout/use-finish-checkout";
 import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import React from "react";
-import { TabsPaymentMethods } from "./tabs-payment-methods";
-import { PRODUCTS_CART_KEY } from "@/hooks/cart/use-get-product-cart";
-import { Skeleton } from "@/components/ui/skeleton";
-import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
-import { useGetCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
-import { CHECKOUT_STATUS_ENUM, ICheckout } from "@/@types/ICheckout";
-import { Button } from "@/components/ui/button";
-import { useFinishCheckout } from "@/hooks/checkout/use-finish-checkout";
-import { LoadingSkeleton } from "../finalizar/components/loading-skeleton";
 import { Loader2 } from "lucide-react";
+import { TabsPaymentMethods } from "./tabs-payment-methods";
 
 interface ResumeItemsCheckoutProps {
   checkoutData: ICheckout | null;
@@ -90,7 +82,6 @@ const ResumeItemsCheckout = ({
               <CartItem
                 disableActions
                 key={item.id}
-                id={item.id}
                 productVariantId={item.productVariant.id}
                 productName={item.productVariant.productName}
                 productVariantName={item.productVariant.name}

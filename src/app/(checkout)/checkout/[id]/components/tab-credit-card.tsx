@@ -3,16 +3,15 @@ import { Button } from "@/components/ui/button";
 import { CreditCard, CreditCardValue } from "@/components/ui/credit-card";
 import {
   Dialog,
-  DialogTitle,
-  DialogHeader,
-  DialogTrigger,
+  DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Loader2 } from "lucide-react";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { FinishLoading } from "./finish-loading";
 
 interface TabCreditCardProps {

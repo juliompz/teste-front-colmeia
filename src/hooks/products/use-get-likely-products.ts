@@ -1,4 +1,4 @@
-import { IProduct, IProductVariant } from "@/@types/IProduct";
+import { IProduct } from "@/@types/IProduct";
 import { mockProducts } from "@/utils/mock-data";
 import { useQuery } from "@tanstack/react-query";
 

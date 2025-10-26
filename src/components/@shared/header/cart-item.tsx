@@ -2,10 +2,10 @@ import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
-import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
-import { useDeleteItemCart } from "@/hooks/cart/use-delete-item-cart";
 import { useDecreaseItemCart } from "@/hooks/cart/use-decrease-item-cart";
+import { useDeleteItemCart } from "@/hooks/cart/use-delete-item-cart";
 import { useIncreaseItemCart } from "@/hooks/cart/use-increase-item-cart";
+import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
 
 interface CartItemProps {
   id: number;

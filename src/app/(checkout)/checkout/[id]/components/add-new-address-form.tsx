@@ -1,4 +1,3 @@
-import { IAddress } from "@/@types/IAddress";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,9 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useAddAddress } from "@/hooks/address/use-add-address";
 import { formatCEP } from "@/utils/masks/format-cep";
-import { useAddressStore } from "@/zustand/address-store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 

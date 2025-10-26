@@ -1,12 +1,11 @@
 import { useAuthStore } from "@/zustand/auth-store";
 import { useMutation } from "@tanstack/react-query";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
 const useLogin = () => {
   const queryParams = useSearchParams();
   const redirect = queryParams.get("redirectTo");
-  console.log("redirect", redirect);
 
   const { login } = useAuthStore();
   const { push } = useRouter();
