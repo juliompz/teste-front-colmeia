@@ -23,7 +23,7 @@ const useAddProductToCart = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: PRODUCTS_CART_KEY });
 
-      toast.success("Cadastro efetuado com sucesso!");
+      toast.success("Produto adicionado ao carrinho!");
     },
   });
   return { mutateAsync };

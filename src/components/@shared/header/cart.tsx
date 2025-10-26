@@ -43,7 +43,7 @@ export const Cart = () => {
           {user && <Badge variant={"outline"}>{items.length}</Badge>}
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="w-full md:max-w-sm">
         <SheetHeader>
           <SheetTitle>Carrinho</SheetTitle>
         </SheetHeader>
