@@ -7,13 +7,13 @@ import {
   PRODUCT_BY_SLUG_KEY,
   useGetProductVariantBySlug,
 } from "@/hooks/products/use-get-product-variant-by-slug";
-import { ProductActions } from "../product-actions";
-import { LikelyProducts } from "../list-likely-products/list-likely-products";
-import { VariantSelector } from "../variant-selector";
+import { ProductActions } from "./product-actions";
+import { LikelyProducts } from "./list-likely-products";
+import { VariantSelector } from "./variant-selector";
 import { Loader2 } from "lucide-react";
 import { ErrorWithImage } from "@/components/@shared/error-with-image";
 
-const Wrapper = ({ slug }: { slug: string }) => {
+const WrapperProduct = ({ slug }: { slug: string }) => {
   const {
     data: productVariant,
     isError,
@@ -86,4 +86,4 @@ const Wrapper = ({ slug }: { slug: string }) => {
   );
 };
 
-export { Wrapper };
+export { WrapperProduct };

@@ -40,7 +40,7 @@ export const Cart = () => {
       <SheetTrigger asChild className="px-2">
         <Button variant="outline">
           <ShoppingCartIcon />
-          <Badge variant={"outline"}>{items.length}</Badge>
+          {user && <Badge variant={"outline"}>{items.length}</Badge>}
         </Button>
       </SheetTrigger>
       <SheetContent>

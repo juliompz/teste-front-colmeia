@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { LoginForm } from "./components/login-form";
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -23,7 +23,9 @@ const Page = () => {
             <TabsTrigger value="register">Criar conta</TabsTrigger>
           </TabsList>
           <TabsContent value="login" className="w-full">
-            <LoginForm />
+            <Suspense>
+              <LoginForm />
+            </Suspense>
           </TabsContent>
           <TabsContent value="register" className="w-full">
             <RegisterForm />

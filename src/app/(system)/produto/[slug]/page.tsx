@@ -1,6 +1,6 @@
 import { PageContainer } from "@/components/@shared/page-container";
 
-import { Wrapper } from "./components/wrapper";
+import { WrapperProduct } from "./components/wrapper-product";
 
 interface ProductVariantPageProps {
   params: Promise<{ slug: string }>;
@@ -11,7 +11,7 @@ const ProductVariantPage = async ({ params }: ProductVariantPageProps) => {
 
   return (
     <PageContainer>
-      <Wrapper slug={slug} />
+      <WrapperProduct slug={slug} />
     </PageContainer>
   );
 };
