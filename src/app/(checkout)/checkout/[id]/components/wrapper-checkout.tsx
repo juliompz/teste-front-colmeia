@@ -4,12 +4,20 @@ import { CheckoutAddress } from "./checkout-address";
 import { ResumeItemsCheckout } from "./resume-items-checkout";
 import { useGetCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
 import { CHECKOUT_STATUS_ENUM } from "@/@types/ICheckout";
-import { WrapperResumeOrder } from "../finalizar/components/wrapper-resume-order";
+import dynamic from "next/dynamic";
+
+const DynamicWrapperResumeOrder = dynamic(
+  () =>
+    import("../finalizar/components/wrapper-resume-order").then(
+      (mod) => mod.WrapperResumeOrder
+    ),
+  { ssr: false }
+);
 
 const WrapperCheckout = ({ checkoutId }: { checkoutId: string }) => {
   const { data: checkout, isLoading, isError } = useGetCheckoutById(checkoutId);
   if (checkout?.status !== CHECKOUT_STATUS_ENUM.PENDENTE) {
-    return <WrapperResumeOrder id={checkoutId} />;
+    return <DynamicWrapperResumeOrder id={checkoutId} />;
   }
   return (
     <div className="flex flex-col gap-4 md:flex-row-reverse pb-20">

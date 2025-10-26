@@ -1,9 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CreditCardIcon, FileText, QrCode } from "lucide-react";
+import { CreditCardIcon, FileText, Loader2, QrCode } from "lucide-react";
 import React from "react";
-import { TabCreditCard } from "./tab-credit-card";
-import { TabPix } from "./tab-pix";
-import { TabBoleto } from "./tab-boleto";
 import { useUpdatePaymentMethodCheckout } from "@/hooks/checkout/use-update-payment-method-checkout";
 import {
   CHECKOUT_STATUS_ENUM,
@@ -11,6 +8,39 @@ import {
   PAYMENT_METHOD_ENUM,
 } from "@/@types/ICheckout";
 import { useFinishCheckout } from "@/hooks/checkout/use-finish-checkout";
+import dynamic from "next/dynamic";
+
+const DynamicLoading = () => {
+  return (
+    <div className="flex justify-center items-center">
+      <Loader2 className="animate-spin h-6 w-6" />
+    </div>
+  );
+};
+
+const DynamicTabBoleto = dynamic(
+  () => import("./tab-boleto").then((mod) => mod.TabBoleto),
+  {
+    ssr: false,
+    loading: () => <DynamicLoading />,
+  }
+);
+
+const DynamicTabCreditCard = dynamic(
+  () => import("./tab-credit-card").then((mod) => mod.TabCreditCard),
+  {
+    ssr: false,
+    loading: () => <DynamicLoading />,
+  }
+);
+
+const DynamicTabPix = dynamic(
+  () => import("./tab-pix").then((mod) => mod.TabPix),
+  {
+    ssr: false,
+    loading: () => <DynamicLoading />,
+  }
+);
 
 const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
   const { mutateAsync: updatePaymentMethod } = useUpdatePaymentMethodCheckout();
@@ -76,21 +106,21 @@ const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
       </TabsList>
 
       <TabsContent value="credit_card">
-        <TabCreditCard
+        <DynamicTabCreditCard
           handleFinishPurchase={handleFinishPurchase}
           isPendingFinish={isPendingFinish}
         />
       </TabsContent>
 
       <TabsContent value="pix">
-        <TabPix
+        <DynamicTabPix
           handleFinishPurchase={handleFinishPurchase}
           isPendingFinish={isPendingFinish}
         />
       </TabsContent>
 
       <TabsContent value="boleto">
-        <TabBoleto
+        <DynamicTabBoleto
           handleFinishPurchase={handleFinishPurchase}
           isPendingFinish={isPendingFinish}
         />
