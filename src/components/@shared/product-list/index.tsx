@@ -37,11 +37,14 @@ const ProductList = ({
 
   if (isLoading) {
     return (
-      <div>
+      <div className="space-y-3">
         <p className="px-5 font-semibold">{title}</p>
-        <div className="flex w-full gap-4 overflow-x-auto px-5 ">
+        <div className="flex w-full gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
           {[...Array(6)].map((_, i) => (
-            <Skeleton key={i} className=" h-56 w-full rounded-lg " />
+            <Skeleton
+              key={i}
+              className="min-w-[180px] min-h-[200px] md:w-md h-20 rounded-lg "
+            />
           ))}
         </div>
       </div>
