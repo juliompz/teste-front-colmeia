@@ -8,7 +8,6 @@ import { useIncreaseItemCart } from "@/hooks/cart/use-increase-item-cart";
 import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
 
 interface CartItemProps {
-  id: number;
   productName: string;
   productVariantId: number;
   productVariantName: string;
@@ -19,7 +18,6 @@ interface CartItemProps {
 }
 
 const CartItem = ({
-  id,
   productName,
   productVariantId,
   productVariantName,
