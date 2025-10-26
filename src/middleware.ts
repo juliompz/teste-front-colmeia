@@ -24,8 +24,8 @@ export async function middleware(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
   const userIsAtuthenticaded = !!userSession;
 
-  const ROUTE_NEEDS_ACTION = VERIFY_ROUTE.find(
-    (route) => pathName === route.path
+  const ROUTE_NEEDS_ACTION = VERIFY_ROUTE.find((route) =>
+    pathName.startsWith(route.path)
   );
 
   if (!ROUTE_NEEDS_ACTION) {
@@ -43,6 +43,8 @@ export async function middleware(request: NextRequest) {
       new URL(ROUTE_NEEDS_ACTION.redirectTo, request.url)
     );
   }
+
+  return NextResponse.next();
 }
 
 export const config = {
