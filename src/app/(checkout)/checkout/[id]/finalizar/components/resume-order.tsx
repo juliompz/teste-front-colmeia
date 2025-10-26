@@ -1,15 +1,10 @@
 "use client";
 import { IAddress } from "@/@types/IAddress";
 import { ICheckout, PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
-import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  PRODUCTS_CHECKOUT_KEY,
-  useGetCheckoutById,
-} from "@/hooks/checkout/use-get-checkout-by-id";
-import { formatAddress } from "@/utils/format-address";
-import { formatMoneyBrl } from "@/utils/format-money-brl";
+import { formatAddress } from "@/utils/masks/format-address";
+import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
 import { CreditCard, MapPin, Package } from "lucide-react";
 import React from "react";
 import { LoadingSkeleton } from "./loading-skeleton";

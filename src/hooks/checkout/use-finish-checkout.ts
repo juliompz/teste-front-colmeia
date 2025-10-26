@@ -1,3 +1,4 @@
+import { CHECKOUT_STATUS_ENUM } from "@/@types/ICheckout";
 import { useCartStore } from "@/zustand/cart-store";
 import { useCheckoutStore } from "@/zustand/checkout-store";
 import { useMutation } from "@tanstack/react-query";
@@ -11,13 +12,15 @@ const useFinishCheckout = () => {
   return useMutation({
     mutationFn: async ({
       checkoutId,
+      status,
       createdByCart,
     }: {
       checkoutId: string;
+      status: CHECKOUT_STATUS_ENUM;
       createdByCart?: boolean;
     }) => {
       await new Promise((resolve) => setTimeout(resolve, 3000)); // simula latência
-      return finishCheckout(checkoutId);
+      return finishCheckout(checkoutId, status);
     },
     onError: (err) => {
       toast.error(err.message);

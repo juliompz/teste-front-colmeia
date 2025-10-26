@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { formatMoneyBrl } from "@/utils/format-money-brl";
+import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
 import { IProductVariant } from "@/@types/IProduct";
 import {
   PRODUCT_BY_SLUG_KEY,

@@ -13,7 +13,7 @@ import { ADDRESS_KEY, useGetAddress } from "@/hooks/address/use-get-address";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 import { useUpdateCheckoutAddress } from "@/hooks/checkout/use-update-address-checkout";
-import { formatAddress } from "@/utils/format-address";
+import { formatAddress } from "@/utils/masks/format-address";
 
 interface CheckoutAddressProps {
   checkoutId: string;

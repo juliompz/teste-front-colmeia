@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { formatMoneyBrl } from "@/utils/format-money-brl";
+import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
 import { IProduct } from "@/@types/IProduct";
 
 interface ProductItemProps {

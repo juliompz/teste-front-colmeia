@@ -1,12 +1,15 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AlertTriangle, CreditCardIcon, FileText, QrCode } from "lucide-react";
+import { CreditCardIcon, FileText, QrCode } from "lucide-react";
 import React from "react";
 import { TabCreditCard } from "./tab-credit-card";
 import { TabPix } from "./tab-pix";
 import { TabBoleto } from "./tab-boleto";
 import { useUpdatePaymentMethodCheckout } from "@/hooks/checkout/use-update-payment-method-checkout";
-import { ICheckout, PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
-import { toast } from "sonner";
+import {
+  CHECKOUT_STATUS_ENUM,
+  ICheckout,
+  PAYMENT_METHOD_ENUM,
+} from "@/@types/ICheckout";
 import { useFinishCheckout } from "@/hooks/checkout/use-finish-checkout";
 
 const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
@@ -15,7 +18,10 @@ const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
     useFinishCheckout();
   const emptyAddress = checkout.deliveryAddress === null;
 
-  const handleFinishPurchase = async (paymentMethod: PAYMENT_METHOD_ENUM) => {
+  const handleFinishPurchase = async (
+    paymentMethod: PAYMENT_METHOD_ENUM,
+    status: CHECKOUT_STATUS_ENUM
+  ) => {
     await updatePaymentMethod({
       checkoutId: checkout.id,
       paymentMethod,
@@ -24,6 +30,7 @@ const TabsPaymentMethods = ({ checkout }: { checkout: ICheckout }) => {
     await finishCheckout({
       checkoutId: checkout.id,
       createdByCart: checkout.createdByCart,
+      status: status,
     });
   };
 

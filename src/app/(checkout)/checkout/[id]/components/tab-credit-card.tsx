@@ -1,4 +1,4 @@
-import { PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
+import { CHECKOUT_STATUS_ENUM, PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
 import { Button } from "@/components/ui/button";
 import { CreditCard, CreditCardValue } from "@/components/ui/credit-card";
 import {
@@ -16,7 +16,10 @@ import React, { useState } from "react";
 import { FinishLoading } from "./finish-loading";
 
 interface TabCreditCardProps {
-  handleFinishPurchase: (paymentMethod: PAYMENT_METHOD_ENUM) => void;
+  handleFinishPurchase: (
+    paymentMethod: PAYMENT_METHOD_ENUM,
+    status: CHECKOUT_STATUS_ENUM
+  ) => void;
   isPendingFinish: boolean;
 }
 
@@ -59,7 +62,10 @@ const TabCreditCard = ({
             <DialogFooter>
               <Button
                 onClick={() =>
-                  handleFinishPurchase(PAYMENT_METHOD_ENUM.CREDIT_CARD)
+                  handleFinishPurchase(
+                    PAYMENT_METHOD_ENUM.CREDIT_CARD,
+                    CHECKOUT_STATUS_ENUM.CONCLUIDO
+                  )
                 }
                 disabled={disableButton}
                 className="cursor-pointer"

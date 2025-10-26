@@ -15,7 +15,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { CartItem } from "./cart-item";
-import { formatMoneyBrl } from "@/utils/format-money-brl";
+import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuthStore } from "@/zustand/auth-store";
 import { IUser } from "@/@types/IUser";

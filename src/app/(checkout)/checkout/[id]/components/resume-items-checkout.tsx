@@ -7,7 +7,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { formatMoneyBrl } from "@/utils/format-money-brl";
+import { formatMoneyBrl } from "@/utils/masks/format-money-brl";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import React from "react";
 import { TabsPaymentMethods } from "./tabs-payment-methods";
@@ -15,7 +15,11 @@ import { PRODUCTS_CART_KEY } from "@/hooks/cart/use-get-product-cart";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertErrorWithReload } from "@/components/@shared/alert-error-with-reload";
 import { useGetCheckoutById } from "@/hooks/checkout/use-get-checkout-by-id";
-import { ICheckout } from "@/@types/ICheckout";
+import { CHECKOUT_STATUS_ENUM, ICheckout } from "@/@types/ICheckout";
+import { Button } from "@/components/ui/button";
+import { useFinishCheckout } from "@/hooks/checkout/use-finish-checkout";
+import { LoadingSkeleton } from "../finalizar/components/loading-skeleton";
+import { Loader2 } from "lucide-react";
 
 interface ResumeItemsCheckoutProps {
   checkoutData: ICheckout | null;
@@ -28,6 +32,16 @@ const ResumeItemsCheckout = ({
   isErrorCheckout,
   isLoadingCheckout,
 }: ResumeItemsCheckoutProps) => {
+  const { mutateAsync: finishCheckout, isPending } = useFinishCheckout();
+
+  const handleCancelCheckout = () => {
+    if (!checkoutData) return;
+    finishCheckout({
+      checkoutId: checkoutData.id,
+      status: CHECKOUT_STATUS_ENUM.CANCELADO,
+    });
+  };
+
   if (isErrorCheckout) {
     return (
       <Card className="flex flex-col gap-4 p-4 h-[30vh] justify-center">
@@ -36,9 +50,31 @@ const ResumeItemsCheckout = ({
     );
   }
 
+  if (isPending)
+    return (
+      <div className="flex  gap-4 p-4 h-[30vh] justify-center">
+        <div className="flex flex-col gap-4 items-center">
+          <p>Aguarde, cancelando o pedido...</p>
+          <Loader2 className="animate-spin h-16 w-16 text-red-500" />
+        </div>
+      </div>
+    );
+
   return (
     <Card>
-      <CardHeader>Finalizando a compra</CardHeader>
+      <CardHeader>
+        <div className="flex justify-between items-center">
+          <p>Resumo do pedido</p>
+          <Button
+            variant={"ghost"}
+            size={"sm"}
+            className="text-red-300"
+            onClick={handleCancelCheckout}
+          >
+            Cancelar compra
+          </Button>
+        </div>
+      </CardHeader>
       <CardContent>
         <ScrollArea className="h-full">
           <p className=" text-sm font-medium mb-1">Itens do carrinho</p>

@@ -7,7 +7,6 @@ import {
 } from "@/@types/ICheckout";
 import { ICartItem } from "@/@types/ICart";
 import { IAddress } from "@/@types/IAddress";
-import { useCartStore } from "./cart-store";
 
 interface CheckoutState {
   checkouts: ICheckout[];
@@ -22,9 +21,8 @@ interface CheckoutState {
     checkoutId: string,
     paymentMethod: PAYMENT_METHOD_ENUM
   ) => void;
-  updateCheckoutStatus: (id: string, status: CHECKOUT_STATUS_ENUM) => void;
   getCheckoutById: (id: string) => ICheckout | undefined;
-  finishCheckout: (id: string) => void;
+  finishCheckout: (id: string, status: CHECKOUT_STATUS_ENUM) => void;
   calculateTotal: (items: ICartItem[]) => number;
 }
 
@@ -39,6 +37,7 @@ export const useCheckoutStore = create<CheckoutState>()(
       ) => {
         const totalPriceInCents = get().calculateTotal(items);
         const code = Math.floor(100000 + Math.random() * 900000).toString();
+        const date = new Date().toISOString();
         const newCheckout: ICheckout = {
           id: code,
           items,
@@ -47,6 +46,8 @@ export const useCheckoutStore = create<CheckoutState>()(
           paymentMethod: null,
           deliveryAddress: null,
           createdByCart: createdByCart,
+          createdAt: date,
+          updatedAt: date,
         };
 
         // Funcao para ordenar as listas e compara item a item
@@ -104,27 +105,28 @@ export const useCheckoutStore = create<CheckoutState>()(
           ),
         }));
       },
-      updateCheckoutStatus: (id, status) => {
-        set((state) => ({
-          checkouts: state.checkouts.map((checkout) =>
-            checkout.id === id ? { ...checkout, status } : checkout
-          ),
-        }));
-      },
+
       getCheckoutById: (id) => {
         const checkout = get().checkouts.find((c) => c.id === id);
         if (!checkout) throw new Error("Checkout não encontrado");
         return checkout;
       },
-      finishCheckout: async (id) => {
+      finishCheckout: async (id, status) => {
+        const updatedDate = new Date().toISOString();
         const checkout = get().getCheckoutById(id);
         if (!checkout) throw new Error("Checkout não encontrado");
         if (checkout.status !== CHECKOUT_STATUS_ENUM.PENDENTE) {
-          throw new Error("Checkout já concluído");
+          throw new Error("Checkout já finalizado");
         }
         set((state) => ({
           checkouts: state.checkouts.map((c) =>
-            c.id === id ? { ...c, status: CHECKOUT_STATUS_ENUM.CONCLUIDO } : c
+            c.id === id
+              ? {
+                  ...c,
+                  status: status,
+                  updatedAt: updatedDate,
+                }
+              : c
           ),
         }));
       },

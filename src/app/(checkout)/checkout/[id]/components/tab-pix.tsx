@@ -1,4 +1,4 @@
-import { PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
+import { CHECKOUT_STATUS_ENUM, PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,7 +16,10 @@ import Countdown from "react-countdown";
 import { FinishLoading } from "./finish-loading";
 
 interface TabPixProps {
-  handleFinishPurchase: (paymentMethod: PAYMENT_METHOD_ENUM) => void;
+  handleFinishPurchase: (
+    paymentMethod: PAYMENT_METHOD_ENUM,
+    status: CHECKOUT_STATUS_ENUM
+  ) => void;
   isPendingFinish: boolean;
 }
 
@@ -94,6 +97,9 @@ const ShowQrCodeContent = ({
     }, 2000);
   };
 
+  if (isPendingFinish)
+    return <FinishLoading text="Validando PIX, aguarde um instante..." />;
+
   return (
     <div className="flex flex-col items-center py-6">
       <div className="flex flex-col items-center ">
@@ -104,18 +110,19 @@ const ShowQrCodeContent = ({
           count={100000}
           zeroPadTime={2}
           daysInHours
-          // onComplete={}
+          onComplete={() =>
+            handleFinishPurchase(
+              PAYMENT_METHOD_ENUM.PIX,
+              CHECKOUT_STATUS_ENUM.CANCELADO
+            )
+          }
         />
         <p className="text-sm text-muted-foreground text-center mb-4">
           Você tem 5 minutos para efetuar o pagamento
         </p>
       </div>
       <div className="bg-white p-4 rounded-lg mb-4">
-        {isPendingFinish ? (
-          <FinishLoading text="Validando PIX, aguarde um instante..." />
-        ) : (
-          <Image src="/images/qrCode.png" alt="PIX" width={200} height={300} />
-        )}
+        <Image src="/images/qrCode.png" alt="PIX" width={200} height={300} />
       </div>
       <p className="text-sm text-muted-foreground text-center mb-4">
         Escaneie o QR Code com o app do seu banco ou copie o código abaixo
@@ -144,7 +151,12 @@ const ShowQrCodeContent = ({
 
         <Button
           className="w-full"
-          onClick={() => handleFinishPurchase(PAYMENT_METHOD_ENUM.PIX)}
+          onClick={() =>
+            handleFinishPurchase(
+              PAYMENT_METHOD_ENUM.PIX,
+              CHECKOUT_STATUS_ENUM.CONCLUIDO
+            )
+          }
           disabled={isPendingFinish}
         >
           Ja paguei

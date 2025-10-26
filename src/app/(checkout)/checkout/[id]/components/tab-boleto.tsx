@@ -1,4 +1,4 @@
-import { PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
+import { CHECKOUT_STATUS_ENUM, PAYMENT_METHOD_ENUM } from "@/@types/ICheckout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -16,7 +16,10 @@ import React, { useState } from "react";
 import { FinishLoading } from "./finish-loading";
 
 interface TabBoletoProps {
-  handleFinishPurchase: (paymentMethod: PAYMENT_METHOD_ENUM) => void;
+  handleFinishPurchase: (
+    paymentMethod: PAYMENT_METHOD_ENUM,
+    status: CHECKOUT_STATUS_ENUM
+  ) => void;
   isPendingFinish: boolean;
 }
 
@@ -124,7 +127,12 @@ const ShowBoletoInfo = ({ handleFinishPurchase }: TabBoletoProps) => {
 
         <div className="flex justify-center">
           <Button
-            onClick={() => handleFinishPurchase(PAYMENT_METHOD_ENUM.BOLETO)}
+            onClick={() =>
+              handleFinishPurchase(
+                PAYMENT_METHOD_ENUM.BOLETO,
+                CHECKOUT_STATUS_ENUM.CONCLUIDO
+              )
+            }
           >
             Ja paguei
           </Button>
