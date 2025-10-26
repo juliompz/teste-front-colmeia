@@ -54,7 +54,6 @@ const RegisterForm = () => {
 
   const { mutateAsync: createUser } = useCreateUser();
 
-  const router = useRouter();
   const form = useForm<z.infer<typeof registerSchema>>({
     defaultValues: {
       confirmPassword: "",
@@ -71,6 +70,7 @@ const RegisterForm = () => {
       email: values.email,
       password: values.password,
     });
+    form.reset();
   }
 
   return (
@@ -210,12 +210,6 @@ const RegisterForm = () => {
               >
                 Registrar
               </Button>
-              <p className="text-center text-sm text-muted-foreground">
-                Já tem uma conta?{" "}
-                <Link className="text-primary hover:underline" href="/entrar">
-                  Entrar
-                </Link>
-              </p>
             </div>
           </Form>
         </CardContent>

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ThemeToggle } from "../../theme-toggle/theme-toggle";
-import Image from "next/image";
 import { Cart } from "./cart";
 import { PageContainer } from "../page-container";
 import { Button } from "@/components/ui/button";
