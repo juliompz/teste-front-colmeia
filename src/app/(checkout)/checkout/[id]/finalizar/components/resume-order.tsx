@@ -79,7 +79,7 @@ const ResumeOrder = ({ order }: { order: ICheckout }) => {
             <h3 className="font-semibold">Endereço de entrega</h3>
           </div>
           <p className="text-muted-foreground">
-            {formatAddress(order?.deliveryAddress ?? ({} as IAddress))}
+            {formatAddress(order?.deliveryAddress)}
           </p>
         </div>
 
