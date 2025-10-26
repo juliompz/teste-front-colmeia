@@ -4,18 +4,12 @@ import { Loader2, MinusIcon, PlusIcon, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { AddProductToCartButton } from "../add-product-cart-button";
 import { IProductVariant } from "@/@types/IProduct";
 import { useRouter } from "next/navigation";
 import { useCreateCheckout } from "@/hooks/checkout/use-create-checkout";
 import { CHECKOUT_STATUS_ENUM } from "@/@types/ICheckout";
 import { useAuthStore } from "@/zustand/auth-store";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Link from "next/link";
 import { useAddProductToCart } from "@/hooks/cart/use-add-product-cart";
 
@@ -111,7 +105,11 @@ const ProductActions = ({ productVariant }: ProductActionsProps) => {
           </p>
 
           <Button asChild>
-            <Link href="/autenticar">Entrar</Link>
+            <Link
+              href={`/autenticar?redirectTo=/produto/${productVariant.slug}`}
+            >
+              Entrar
+            </Link>
           </Button>
         </DialogContent>
       </Dialog>

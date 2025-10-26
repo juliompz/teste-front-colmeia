@@ -1,9 +1,13 @@
 import { useAuthStore } from "@/zustand/auth-store";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
 const useLogin = () => {
+  const queryParams = useSearchParams();
+  const redirect = queryParams.get("redirectTo");
+  console.log("redirect", redirect);
+
   const { login } = useAuthStore();
   const { push } = useRouter();
   return useMutation({
@@ -21,6 +25,10 @@ const useLogin = () => {
     },
     onSuccess: () => {
       toast.success("Login efetuado com sucesso!");
+      if (redirect) {
+        push(redirect);
+        return;
+      }
       push("/");
     },
   });
