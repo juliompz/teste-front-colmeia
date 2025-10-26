@@ -5,6 +5,10 @@ npm install
 npm run dev
 ```
 
+# 🛍️ Colmeia Store
+
+link deploy do projeto: https://colmeia-store.vercel.app
+
 # 🛍️ E-commerce Checkout
 
 Um fluxo de checkout completo e mockado com experiência de usuário fluida.
