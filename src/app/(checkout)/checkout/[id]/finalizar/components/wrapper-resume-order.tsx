@@ -19,6 +19,7 @@ const WrapperResumeOrder = ({ id }: { id: string }) => {
   const { push } = useRouter();
   const { data: order, isLoading, isError } = useGetCheckoutById(id);
   const { mutateAsync: createCheckout, isPending } = useCreateCheckout();
+
   if (order?.status === CHECKOUT_STATUS_ENUM.PENDENTE) {
     return <ReturnToCheckout checkoutId={id} />;
   }
