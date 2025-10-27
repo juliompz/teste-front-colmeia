@@ -6,7 +6,7 @@ import { RegisterForm } from "./components/register-form";
 
 const Page = () => {
   return (
-    <div className="px-4 pb-12 flex justify-center items-center">
+    <div className="px-4 pb-12 flex justify-center min-h-screen">
       <div className="max-w-3xl w-full">
         <div className="flex justify-center items-center">
           <Image
