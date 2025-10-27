@@ -9,6 +9,8 @@ npm run dev
 
 link deploy do projeto: https://colmeia-store.vercel.app
 
+link do video rapido de explicaçao do projeto: https://drive.google.com/file/d/1nbYFatKHMn23zrprl1WcnUo3JmCjLEUA/view?usp=sharing
+
 # 🛍️ E-commerce Checkout
 
 Um fluxo de checkout completo e mockado com experiência de usuário fluida.
